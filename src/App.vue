@@ -2,8 +2,10 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/register">register</router-link> |
-      <router-link to="/login">login</router-link> |
+      <router-link to="/secure">Secure | </router-link>
+      <router-link v-if="!isLoggedIn" to="/register">Register | </router-link>
+      <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
+      <span v-if="isLoggedIn"><a @click="logout">Logout</a></span>
     </div>
     <router-view/>
   </div>
@@ -31,3 +33,29 @@
   }
 }
 </style>
+
+<script>
+  export default {
+    created: function () {
+      this.$http.interceptors.response.use(undefined, function (err) {
+        return new Promise(() => {
+          if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+            this.$store.dispatch('logout')
+          }
+          throw err
+        })
+      })
+    },
+    computed: {
+      isLoggedIn: function () {
+        return this.$store.getters.isLoggedIn
+      }
+    },
+    methods: {
+      logout: function () {
+        this.$store.dispatch('logout')
+          .then(() => this.$router.push('login'))
+      }
+    }
+  }
+</script>

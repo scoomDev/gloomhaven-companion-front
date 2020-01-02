@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Register</h2>
-        <form @submit="register">
+        <form @submit.prevent="register">
             <div>
                 <input type="text" placeholder="username" v-model="username">
             </div>
@@ -34,7 +34,7 @@
                     password: this.password
                 }
 
-                this.$store.dispatch('signup', info).then(() => this.$router.push('login'))
+                this.$store.dispatch('register', info).then(() => this.$router.push('login'))
             }
 
         }

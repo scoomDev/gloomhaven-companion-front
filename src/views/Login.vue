@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Login</h2>
-        <form @submit="login">
+        <form class="login" @submit.prevent="login">
             <div>
                 <input type="text" placeholder="username" v-model="username">
             </div>
@@ -9,7 +9,7 @@
                 <input type="password" placeholder="password" v-model="password">
             </div>
             <div>
-                <button type="submit">Login</button>
+                <button v-on:click="login" type="submit">Login</button>
             </div>
         </form>
     </div>
@@ -25,11 +25,13 @@
         },
 
         methods: {
-            login: () => {
+            login() {
                 const username = this.username
                 const password = this.password
 
-                this.$store.dispatch('login', {username, password}).then(() => this.$router.push('/'))
+                this.$store.dispatch('login', {username, password})
+                    .then(() => this.$router.push('/'))
+                    .catch(error => console.log(error))
             }
         }
     }
