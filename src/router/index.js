@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Secure from '../views/Secure.vue'
+import Characters from '../views/CharacterList.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/characters',
+    name: 'characters',
+    component: Characters
   },
   {
     path: '/secure',

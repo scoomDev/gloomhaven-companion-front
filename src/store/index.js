@@ -39,15 +39,13 @@ export default new Vuex.Store({
                     .then(response => {
                         const token = response.data.token
                         localStorage.setItem('token', token)
-                        Axios.defaults.headers.common['Authorization'] = token
-                        console.log(response.data)
+                        Axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
                         commit('auth_success', token, user)
                         resolve(response)
                     })
                     .catch(error => {
                         commit('auth_error', error)
                         localStorage.removeItem('token')
-                        console.log(error.response.data)
                         reject(error)
                     })
                     .finally(() => {
@@ -62,7 +60,7 @@ export default new Vuex.Store({
                     .then(response => {
                         const token = response.data.token
                         localStorage.setItem('token', token)
-                        Axios.defaults.headers.common['Authorization'] = token
+                        Axios.defaults.headers.common['Authorization'] = 'Bearer' + token
                         commit('auth_success', token, user)
                         resolve(response)
                     })
@@ -79,6 +77,18 @@ export default new Vuex.Store({
                 localStorage.removeItem('token')
                 delete Axios.defaults.headers.common['Authorization']
                 resolve()
+            })
+        },
+        getCharacter() {
+            return new Promise((resolve, reject) => {
+                Axios.get(API_URL + '/game_characters', { headers: { Authorization: 'Bearer ' + this.state.token }})
+                    .then(response => {
+                        resolve(response.data['hydra:member'])
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        reject(error)
+                    })
             })
         }
     },

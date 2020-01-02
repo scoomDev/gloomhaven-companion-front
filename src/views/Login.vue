@@ -4,14 +4,14 @@
         <form class="login" @submit.prevent="login">
             <div>
                 <input type="text" placeholder="username" v-model="username">
-            </div>
-            <div>
+            </div>http://localhost:8080/characters
+            <div>http://localhost:8080/characters
                 <input type="password" placeholder="password" v-model="password">
             </div>
             <div>
                 <button v-on:click="login" type="submit">Login</button>
             </div>
-        </form>
+        </form>http://localhost:8080/characters
     </div>
 </template>
 
