@@ -21,14 +21,18 @@ export default new Vuex.Store({
             state.status = 'loading'
         },
         auth_success(state, token, user) {
-            state.status.state = 'success'
-            state.status.message = 'Connection success'
+            state.status = {
+                state: "success",
+                message: 'Connection success'
+            }
             state.token = token
             state.user = user
         },
         auth_error(state, payload) {
-            state.status.state = 'error'
-            state.status.message = payload.message
+            state.status = {
+                state: "error",
+                message: payload.message
+            }
         },
         logout(state) {
             state.status = ''
