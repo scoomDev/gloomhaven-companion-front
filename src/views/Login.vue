@@ -1,26 +1,43 @@
 <template>
     <div>
-        <h2>Login</h2>
+        <h2>Viens ! Connecte toi !</h2>
+        <div v-if="errors.state" :class="{ 'alert-error': errors.state = 'error' }">
+            {{ errors.message }}
+        </div>
         <form class="login" @submit.prevent="login">
             <div>
                 <input type="text" placeholder="username" v-model="username">
-            </div>http://localhost:8080/characters
-            <div>http://localhost:8080/characters
+            </div>
+            <div>
                 <input type="password" placeholder="password" v-model="password">
             </div>
             <div>
-                <button v-on:click="login" type="submit">Login</button>
+                <button type="submit">Ça va ! J'arrive !</button>
             </div>
-        </form>http://localhost:8080/characters
+        </form>
+        <div>
+            <router-link v-if="!isLoggedIn" to="/register">J'ai pas de compte gros !</router-link>
+        </div>
     </div>
 </template>
+
+<style lang="scss">
+    .alert-error {
+        display: inline-block;
+        padding: 0.8rem 1.2rem;
+        color: #5b0000;
+        background-color: rgba(255, 119, 111, 0.71);
+    }
+</style>
 
 <script>
     export default {
         data() {
             return {
                 username: "",
-                password: ""
+                password: "",
+                isLoggedIn: this.$store.getters.isLoggedIn,
+                errors: {}
             }
         },
 
@@ -31,7 +48,7 @@
 
                 this.$store.dispatch('login', {username, password})
                     .then(() => this.$router.push('/'))
-                    .catch(error => console.log(error))
+                    .catch( () => this.errors = this.$store.getters.authStatus)
             }
         }
     }

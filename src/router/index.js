@@ -6,6 +6,7 @@ import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Secure from '../views/Secure.vue'
 import Characters from '../views/CharacterList.vue'
+import Team from '../views/Team'
 
 Vue.use(VueRouter)
 
@@ -29,9 +30,20 @@ const routes = [
     component: Login
   },
   {
+    path: '/team/:id',
+    name: 'team',
+    component: Team,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
     path: '/characters',
     name: 'characters',
-    component: Characters
+    component: Characters,
+    meta: {
+      requireAuth: true
+    }
   },
   {
     path: '/secure',

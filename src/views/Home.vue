@@ -1,14 +1,32 @@
 <template>
-  <div class="home">
-    <h1>Home</h1>
-  </div>
+    <div class="home">
+        <ul>
+            <li v-for="team in teams" :key="team.id">
+                <router-link :to="{ 'name': 'team', 'params': { 'id': team.id} }">
+                    {{ team.name }}
+                    <p>réputation : {{ team.reputation }}</p>
+                </router-link>
+            </li>
+        </ul>
+    </div>
 </template>
 
-<script>
+<style lang="scss">
+    li {
+        list-style: none;
+    }
+</style>
 
-export default {
-  name: 'home',
-  components: {
-  }
-}
+<script>
+    export default {
+        name: 'home',
+        data() {
+            return {
+                teams: null
+            }
+        },
+        mounted() {
+            this.$store.dispatch('getTeam').then(response => this.teams = response)
+        }
+    }
 </script>

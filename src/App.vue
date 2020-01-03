@@ -1,62 +1,67 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/secure">Secure | </router-link>
-      <router-link to="/characters">Characters | </router-link>
-      <router-link v-if="!isLoggedIn" to="/register">Register | </router-link>
-      <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
-      <span v-if="isLoggedIn"><a @click="logout">Logout</a></span>
+    <div id="app">
+        <Header />
+        <router-view/>
     </div>
-    <router-view/>
-  </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+    * {
+        box-sizing: border-box;
     }
-  }
-}
+
+    #app {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 1200px;
+
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+
+        background-color: #cdcdcd;
+    }
+
+    #nav {
+        padding: 30px;
+
+        a {
+            font-weight: bold;
+            color: #2c3e50;
+
+            &.router-link-exact-active {
+                color: #42b983;
+            }
+        }
+    }
 </style>
 
 <script>
-  export default {
-    created: function () {
-      this.$http.interceptors.response.use(undefined, function (err) {
-        return new Promise(() => {
-          if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-            this.$store.dispatch('logout')
-          }
-          throw err
-        })
-      })
-    },
-    computed: {
-      isLoggedIn: function () {
-        return this.$store.getters.isLoggedIn
-      }
-    },
-    methods: {
-      logout: function () {
-        this.$store.dispatch('logout')
-          .then(() => this.$router.push('login'))
-      }
+    import Header from "./components/Header"
+
+    export default {
+        components: {
+            Header
+        },
+        created: function () {
+            this.$http.interceptors.response.use(undefined, function (err) {
+                return new Promise(() => {
+                    if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+                        this.$store.dispatch('logout')
+                    }
+                    throw err
+                })
+            })
+        },
+        methods: {
+            logout: function () {
+                this.$store.dispatch('logout')
+                    .then(() => this.$router.push('login'))
+            }
+        }
     }
-  }
 </script>
