@@ -16,6 +16,9 @@ export default {
             message: payload.message
         }
     },
+    success(state) {
+        state.status = 'success'
+    },
     logout(state) {
         state.status = ''
         state.token = ''

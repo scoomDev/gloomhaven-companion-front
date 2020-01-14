@@ -2,6 +2,9 @@
     <div>
         <team-header />
         <h1>Heroes</h1>
+        <ul>
+            <li v-for="hero in heroes" :key="hero.id">{{ hero.name }}</li>
+        </ul>
     </div>
 </template>
 
@@ -12,8 +15,13 @@
         components: {
             TeamHeader
         },
+        data() {
+            return {
+                heroes: {}
+            }
+        },
         created() {
-            return this.heroes = this
+            return this.$store.dispatch('getHeroes', this.$route.params.id).then(response => this.heroes = response)
         }
     }
 </script>

@@ -90,5 +90,20 @@ export default {
                     commit('current_team', response.data)
                 })
         })
+    },
+
+    getHeroes({ commit }, id) {
+        return new Promise( (resolve, reject) => {
+            Axios.get(API_URL + `/teams/${id}/heroes`, {headers: {Authorization: 'Bearer ' + this.state.token}})
+                .then(response => {
+                    const heroes = response.data['hydra:member']
+                    console.log('axios response : ' + response)
+                    commit('success')
+                    resolve(heroes)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
     }
 }
