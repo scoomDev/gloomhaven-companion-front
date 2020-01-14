@@ -2,7 +2,7 @@
     <div class="home">
         <ul>
             <li v-for="team in teams" :key="team.id">
-                <router-link :to="{ 'name': 'team', 'params': { 'id': team.id} }">
+                <router-link :to="{ 'name': 'team', 'params': { 'id': team.id} }" v-on:click.native="storeCurrentTeam(team)">
                     {{ team.name }}
                     <p>réputation : {{ team.reputation }}</p>
                 </router-link>
@@ -25,8 +25,13 @@
                 teams: null
             }
         },
-        mounted() {
+        created() {
             this.$store.dispatch('getTeam').then(response => this.teams = response)
+        },
+        methods: {
+            storeCurrentTeam: function(team) {
+                this.$store.commit('current_team', team)
+            }
         }
     }
 </script>

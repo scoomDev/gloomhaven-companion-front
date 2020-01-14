@@ -1,6 +1,7 @@
 <template>
     <div class="header">
         <span>Gloomhaven</span>
+        <span></span>
         <span v-if="isLoggedIn" class="logout-btn">
             <a @click="logout">Logout</a>
         </span>

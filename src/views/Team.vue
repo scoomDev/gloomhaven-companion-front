@@ -1,3 +1,19 @@
 <template>
-    <h1>Team</h1>
+    <div>
+        <team-header />
+        <h1>Heroes</h1>
+    </div>
 </template>
+
+<script>
+    import TeamHeader from "../components/TeamHeader"
+
+    export default {
+        components: {
+            TeamHeader
+        },
+        created() {
+            return this.heroes = this
+        }
+    }
+</script>
