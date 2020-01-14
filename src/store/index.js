@@ -61,9 +61,12 @@ export default new Vuex.Store({
             })
         },
         register({commit}, user) {
+            const bodyFormData = new FormData();
+            bodyFormData.set('username', user.username)
+            bodyFormData.set('password', user.password)
             return new Promise((resolve, reject) => {
                 commit('auth_request')
-                Axios.post(API_URL + '/register', user)
+                Axios.post(API_URL + '/register', bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' }})
                     .then(response => {
                         const token = response.data.token
                         localStorage.setItem('token', token)

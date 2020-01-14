@@ -28,13 +28,25 @@
             }
         },
         methods: {
-            register: () => {
-                let info = {
-                    username: this.username,
-                    password: this.password
-                }
+            register: function () {
+                if (this.username && this.password) {
+                    let info = {
+                        username: this.username,
+                        password: this.password
+                    }
 
-                this.$store.dispatch('register', info).then(() => this.$router.push('login'))
+                    this.$store.dispatch('register', info).then((response) => {
+                        if (response.data.error) console.error(response.data.error) // todo: add message flash
+                        else {
+                            console.log(response)
+                            this.$router.push('login')
+                        }
+
+                    })
+                } else {
+                    // todo: add error message flash
+                    console.error('veuillez remplir les champs requis')
+                }
             }
 
         }
