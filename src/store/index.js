@@ -18,7 +18,8 @@ export default new Vuex.Store({
         authStatus: state => state.status,
         currentUser: state => state.currentUser,
         currentHero: state => state.currentHero,
-        currentTeam: state => state.currentTeam
+        currentTeam: state => state.currentTeam,
+        objects: state => state.currentHero.objects
     },
     mutations,
     actions

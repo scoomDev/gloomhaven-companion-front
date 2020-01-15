@@ -6,7 +6,7 @@ export default {
 
     login({commit}, user) {
         return new Promise((resolve, reject) => {
-            Axios.post(API_URL + '/login_check', user, { headers: {'Content-Type': 'application/json' }})
+            Axios.post(API_URL + '/login_check', user, {headers: {'Content-Type': 'application/json'}})
                 .then(response => {
                     const token = response.data.token
                     sessionStorage.setItem('token', token)
@@ -31,7 +31,7 @@ export default {
         bodyFormData.set('password', user.password)
         return new Promise((resolve, reject) => {
             commit('auth_request')
-            Axios.post(API_URL + '/register', bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' }})
+            Axios.post(API_URL + '/register', bodyFormData, {headers: {'Content-Type': 'multipart/form-data'}})
                 .then(response => {
                     const token = response.data.token
                     sessionStorage.setItem('token', token)
@@ -81,7 +81,7 @@ export default {
         })
     },
 
-    getTeamById({ commit }, teamId) {
+    getTeamById({commit}, teamId) {
         return new Promise(() => {
             Axios.get(API_URL + `/teams/${teamId}`)
                 .then(response => {
@@ -90,8 +90,8 @@ export default {
         })
     },
 
-    getHeroes({ commit }, teamId) {
-        return new Promise( (resolve, reject) => {
+    getHeroes({commit}, teamId) {
+        return new Promise((resolve, reject) => {
             Axios.get(API_URL + `/teams/${teamId}/heroes`, {headers: {Authorization: 'Bearer ' + this.state.token}})
                 .then(response => {
                     const heroes = response.data['hydra:member']
@@ -104,7 +104,7 @@ export default {
         })
     },
 
-    getHeroById({ commit }, heroId) {
+    getHeroById({commit}, heroId) {
         return new Promise((resolve, reject) => {
             Axios.get(API_URL + `/heroes/${heroId}`)
                 .then(response => {
@@ -112,6 +112,27 @@ export default {
                     resolve(response)
                 })
                 .catch(error => reject(error))
+        })
+    },
+
+    updateHero({commit}, {heroId, data}) {
+        return new Promise((resolve, reject) => {
+            Axios.put(
+                API_URL + `/heroes/${heroId}`,
+                data,
+                {
+                    headers: {'Content-Type': 'application/json'}
+                }
+            )
+                .then(response => {
+                    console.log(response)
+                    commit('success')
+                    resolve(response)
+                })
+                .catch(error => {
+                    console.log(error)
+                    reject(error)
+                })
         })
     }
 }
