@@ -9,14 +9,14 @@ export default {
             Axios.post(API_URL + '/login_check', user, { headers: {'Content-Type': 'application/json' }})
                 .then(response => {
                     const token = response.data.token
-                    localStorage.setItem('token', token)
+                    sessionStorage.setItem('token', token)
                     Axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
                     commit('auth_success', {token: token, user: user})
                     resolve(response)
                 })
                 .catch(error => {
                     commit('auth_error', error.response.data)
-                    localStorage.removeItem('token')
+                    sessionStorage.removeItem('token')
                     reject(error.response.data)
                 })
                 .finally(() => {
@@ -34,14 +34,14 @@ export default {
             Axios.post(API_URL + '/register', bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' }})
                 .then(response => {
                     const token = response.data.token
-                    localStorage.setItem('token', token)
+                    sessionStorage.setItem('token', token)
                     Axios.defaults.headers.common['Authorization'] = 'Bearer' + token
                     commit('auth_success', token, user)
                     resolve(response)
                 })
                 .catch(error => {
                     commit('auth_error', error)
-                    localStorage.removeItem('token')
+                    sessionStorage.removeItem('token')
                     reject(error)
                 })
         })
@@ -50,7 +50,7 @@ export default {
     logout({commit}) {
         return new Promise((resolve) => {
             commit('logout')
-            localStorage.removeItem('token')
+            sessionStorage.removeItem('token')
             delete Axios.defaults.headers.common['Authorization']
             resolve()
         })
@@ -63,7 +63,6 @@ export default {
                     resolve(response.data['hydra:member'])
                 })
                 .catch(error => {
-                    console.log(error)
                     reject(error)
                 })
         })
@@ -77,33 +76,42 @@ export default {
                     resolve(team)
                 })
                 .catch(error => {
-                    console.log(error)
                     reject(error)
                 })
         })
     },
 
-    getTeamById({ commit }, id) {
+    getTeamById({ commit }, teamId) {
         return new Promise(() => {
-            Axios.get(API_URL + `/teams/${id}`, {headers: {Authorization: 'Bearer ' + this.state.token}})
+            Axios.get(API_URL + `/teams/${teamId}`)
                 .then(response => {
-                    commit('current_team', response.data)
+                    commit('store_current_team', response.data)
                 })
         })
     },
 
-    getHeroes({ commit }, id) {
+    getHeroes({ commit }, teamId) {
         return new Promise( (resolve, reject) => {
-            Axios.get(API_URL + `/teams/${id}/heroes`, {headers: {Authorization: 'Bearer ' + this.state.token}})
+            Axios.get(API_URL + `/teams/${teamId}/heroes`, {headers: {Authorization: 'Bearer ' + this.state.token}})
                 .then(response => {
                     const heroes = response.data['hydra:member']
-                    console.log('axios response : ' + response)
                     commit('success')
                     resolve(heroes)
                 })
                 .catch(error => {
                     reject(error)
                 })
+        })
+    },
+
+    getHeroById({ commit }, heroId) {
+        return new Promise((resolve, reject) => {
+            Axios.get(API_URL + `/heroes/${heroId}`)
+                .then(response => {
+                    commit('store_current_hero', response.data)
+                    resolve(response)
+                })
+                .catch(error => reject(error))
         })
     }
 }

@@ -4,9 +4,9 @@ import store from '../store/index'
 import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
-import Secure from '../views/Secure.vue'
 import Characters from '../views/CharacterList.vue'
 import Team from '../views/Team'
+import Hero from "../views/Hero"
 
 Vue.use(VueRouter)
 
@@ -46,9 +46,9 @@ const routes = [
     }
   },
   {
-    path: '/secure',
-    name: 'secure',
-    component: Secure,
+    path: '/hero/:id',
+    name: 'hero',
+    component: Hero,
     meta: {
       requireAuth: true
     }
@@ -63,14 +63,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireAuth)) {
-    if (store.getters.isLoggedIn) {
-      next()
-      return
-    }
-    next('/login')
-  } else {
-    next()
-  }
+    if (store.getters.isLoggedIn) next()
+    else next('/login')
+  } else next()
 })
 
 export default router

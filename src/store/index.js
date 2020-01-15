@@ -8,14 +8,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         status: {},
-        token: localStorage.getItem('token') || '',
+        token: sessionStorage.getItem('token') || '',
         currentUser: {},
+        currentHero: {},
         currentTeam: {}
     },
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
         currentUser: state => state.currentUser,
+        currentHero: state => state.currentHero,
         currentTeam: state => state.currentTeam
     },
     mutations,

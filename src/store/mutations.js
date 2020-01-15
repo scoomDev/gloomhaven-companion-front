@@ -23,7 +23,12 @@ export default {
         state.status = ''
         state.token = ''
     },
-    current_team(state, team) {
+    store_current_team(state, team) {
         state.currentTeam = team
+        sessionStorage.setItem('current_team_id', state.currentTeam.id)
+    },
+    store_current_hero(state, hero) {
+        state.currentHero = hero
+        sessionStorage.setItem('current_hero_id', state.currentHero.id)
     }
 }

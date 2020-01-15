@@ -16,7 +16,8 @@
             team: state => state.currentTeam
         }),
         created() {
-            this.$store.dispatch('getTeamById', this.$route.params.id)
+            const teamId = sessionStorage.getItem('current_team_id') || this.$route.params.id
+            this.$store.dispatch('getTeamById', teamId)
         }
     }
 </script>

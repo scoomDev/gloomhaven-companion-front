@@ -26,11 +26,11 @@
             }
         },
         created() {
-            this.$store.dispatch('getTeam').then(response => this.teams = response)
+            return this.$store.dispatch('getTeam').then(response => this.teams = response)
         },
         methods: {
             storeCurrentTeam: function(team) {
-                this.$store.commit('current_team', team)
+                this.$store.commit('store_current_team', team)
             }
         }
     }
