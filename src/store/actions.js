@@ -126,7 +126,7 @@ export default {
             )
                 .then(response => {
                     console.log(response)
-                    commit('success')
+                    commit('store_current_hero', response.data)
                     resolve(response)
                 })
                 .catch(error => {

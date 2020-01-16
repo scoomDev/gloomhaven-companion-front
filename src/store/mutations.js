@@ -30,5 +30,8 @@ export default {
     store_current_hero(state, hero) {
         state.currentHero = hero
         sessionStorage.setItem('current_hero_id', state.currentHero.id)
+    },
+    clear_current_hero(state) {
+        state.currentHero = {}
     }
 }

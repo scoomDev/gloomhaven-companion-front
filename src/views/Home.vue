@@ -26,7 +26,8 @@
             }
         },
         created() {
-            return this.$store.dispatch('getTeam').then(response => this.teams = response)
+            this.$store.commit('clear_current_hero')
+            this.$store.dispatch('getTeam').then(response => this.teams = response)
         },
         methods: {
             storeCurrentTeam: function(team) {

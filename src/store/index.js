@@ -19,7 +19,14 @@ export default new Vuex.Store({
         currentUser: state => state.currentUser,
         currentHero: state => state.currentHero,
         currentTeam: state => state.currentTeam,
-        objects: state => state.currentHero.objects
+        objects: state => state.currentHero.objects,
+        gold: state => state.currentHero.gold,
+        xp: state => state.currentHero.experience,
+        note: state => state.currentHero.note,
+        life: state => {
+            const life = JSON.parse(state.currentHero["GameCharacter"].life)
+            return life[state.currentHero.level]
+        }
     },
     mutations,
     actions

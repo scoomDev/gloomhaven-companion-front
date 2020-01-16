@@ -6,7 +6,7 @@ import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Characters from '../views/CharacterList.vue'
 import Team from '../views/Team'
-import Hero from "../views/Hero"
+import HeroCompanion from "../views/HeroCompanion"
 
 Vue.use(VueRouter)
 
@@ -48,7 +48,7 @@ const routes = [
   {
     path: '/hero/:id',
     name: 'hero',
-    component: Hero,
+    component: HeroCompanion,
     meta: {
       requireAuth: true
     }
