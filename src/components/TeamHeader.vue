@@ -1,11 +1,65 @@
 <template>
     <div class="team-header">
-        <p>{{ team.name }} | réputation : {{ team.reputation }}</p>
+        <picture>
+            <img src="../assets/images/fog_forest.jpg" alt="">
+        </picture>
+        <div class="team-item-content">
+            <div>
+                <h2>{{ team.name }}</h2>
+                <div>6/17</div>
+            </div>
+            <div>{{ team.reputation }}</div>
+        </div>
     </div>
 </template>
 
 <style lang="scss">
+    .team-header {
+        width: 100%;
+        display: flex;
 
+        picture {
+            width: 200px;
+            height: 60px;
+            overflow: hidden;
+            z-index: 1;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .team-item-content {
+            position: relative;
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+            color: white;
+            background-color: #404040;
+            z-index: 2;
+
+            &:before {
+                content: "";
+                position: absolute;
+                left: -30px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0 0 60px 30px;
+                border-color: transparent transparent #404040 transparent;
+            }
+
+            h2 {
+                margin: 0;
+                padding: 0;
+                color: white;
+                font-size: 1.2rem;
+            }
+        }
+    }
 </style>
 
 <script>

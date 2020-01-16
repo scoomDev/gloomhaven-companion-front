@@ -10,6 +10,7 @@ export default new Vuex.Store({
         status: {},
         token: sessionStorage.getItem('token') || '',
         currentUser: {},
+        maxCharacter: 17,
         currentHero: {},
         currentTeam: {}
     },

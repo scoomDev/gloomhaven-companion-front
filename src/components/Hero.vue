@@ -2,12 +2,12 @@
     <div>
         <div v-if="currentHero['GameCharacter']">
             <div>
-                <ul>
-                    <li v-for="(level, index) in changeLevel" :key="index">{{ level }}</li>
+                <ul v-show="editingLevel">
+                    <li v-for="(level, index) in changeLevel" :key="index" @click="updateLevel">{{ level }}</li>
                 </ul>
                 <span>{{ currentHero["GameCharacter"].name}}</span>
                 <h1>{{ currentHero.name }}</h1>
-                <div>lvl {{ currentHero.level }}<span v-show="calculateLevel">+</span> | cards: {{
+                <div>lvl {{ currentHero.level }}<span v-show="calculateLevel" @click="editingLevel = !editingLevel">+</span> | cards: {{
                     currentHero["GameCharacter"].maxCard }}
                 </div>
                 <span>life : {{ life }}</span>
@@ -28,8 +28,8 @@
             <div>
                 <h3>Objets</h3>
                 <ul>
-                    <li v-for="(object, index) in objects" :key="index">{{ object }} <span @click="removeObject"
-                                                                                           :data-value="object">X</span>
+                    <li v-for="(object, index) in objects" :key="index">
+                        {{ object }} <span @click="removeObject" :data-value="object">X</span>
                     </li>
                 </ul>
                 <span @click="editingObject = true" data-field="object">+</span>
@@ -84,6 +84,7 @@
                 editingObject: false,
                 editingXp: false,
                 editingNote: false,
+                editingLevel: false,
                 editGold: '',
                 editXp: '',
                 editNote: '',
@@ -157,6 +158,14 @@
                     this.$store.dispatch('updateHero', {heroId: this.currentHero.id, data: data})
                 }
                 this.editingNote = false
+            },
+            updateLevel(evt) {
+                const value = evt.target.innerText
+                if (value != this.level) {
+                    const data = {level: value}
+                    this.$store.dispatch('updateHero', {heroId: this.currentHero.id, data: data})
+                }
+                this.editingLevel = false
             },
             removeObject(evt) {
                 const object = evt.target.getAttribute('data-value')

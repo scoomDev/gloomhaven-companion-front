@@ -10,12 +10,19 @@
         box-sizing: border-box;
     }
 
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
     #app {
+        position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        max-width: 1200px;
+        max-width: 768px;
+        height: 100vh;
+        margin: 0 auto;
 
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
