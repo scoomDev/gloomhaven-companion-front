@@ -6,9 +6,12 @@
         <div class="team-item-content">
             <div>
                 <h2>{{ team.name }}</h2>
-                <div>6/17</div>
+                <div class="nbr-of-heroes">6/17</div>
             </div>
-            <div>{{ team.reputation }}</div>
+            <div>
+                <div class="reputation">{{ team.reputation }}</div>
+                <div>NSC : {{ teamLevel }}</div>
+            </div>
         </div>
     </div>
 </template>
@@ -19,7 +22,7 @@
         display: flex;
 
         picture {
-            width: 200px;
+            width: 30%;
             height: 60px;
             overflow: hidden;
             z-index: 1;
@@ -52,23 +55,39 @@
                 border-color: transparent transparent #404040 transparent;
             }
 
-            h2 {
-                margin: 0;
-                padding: 0;
-                color: white;
-                font-size: 1.2rem;
+            div {
+                h2 {
+                    width: 85%;
+                    margin: 0;
+                    padding: 0;
+                    color: white;
+                    font-size: 0.8rem;
+                }
+
+                .nbr-of-heroes {
+                    font-size: 0.7rem;
+                }
+            }
+
+            .reputation {
+                width: 15%;
+                font-size: 0.8rem;
+                text-align: center;
             }
         }
     }
 </style>
 
 <script>
-    import { mapState } from 'vuex'
+    import { mapState, mapGetters } from 'vuex'
 
     export default {
-        computed: mapState({
-            team: state => state.currentTeam
-        }),
+        computed: {
+            ...mapState({
+              team: state => state.currentTeam
+            }),
+            ...mapGetters(['teamLevel'])
+        },
         created() {
             const teamId = sessionStorage.getItem('current_team_id') || this.$route.params.id
             this.$store.dispatch('getTeamById', teamId)

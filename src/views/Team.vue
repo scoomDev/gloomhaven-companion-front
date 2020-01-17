@@ -9,8 +9,14 @@
                         <picture>
                             <img :src="require('../assets/images/' + hero.GameCharacter.name + '-portrait.jpg')" alt="">
                         </picture>
+                        <span class="heroes-level">{{ hero.level }}</span>
                         <div class="heroes-item-content">
-                            {{ hero.name }} | level : {{ hero.level }}
+                            <span>{{ hero.name }}</span>
+                            <div class="heroes-stats">
+                                <span class="heroes.gold">{{ hero.gold}}</span>
+                                <span class="heroes.gold">{{ hero.objects.length}}</span>
+                                <span class="heroes.gold">{{ hero.experience}}</span>
+                            </div>
                         </div>
                     </div>
                 </router-link>
@@ -24,11 +30,13 @@
         width: 100%;
 
         .heroes-list {
-            margin: 0 3rem;
+            margin: 0;
             padding: 0;
 
             li {
-                margin: 1rem 0;
+                display: block;
+                width: 300px;
+                margin: 1rem auto;
                 list-style: none;
 
                 a {
@@ -36,12 +44,13 @@
                     text-decoration: none;
 
                     .heroes-item {
+                        position: relative;
                         display: flex;
                         align-items: center;
 
                         picture {
-                            width: 100px;
-                            height: 100px;
+                            width: 80px;
+                            height: 80px;
                             border-radius: 50%;
                             overflow: hidden;
                             z-index: 2;
@@ -53,12 +62,44 @@
                             }
                         }
 
+                        .heroes-level {
+                            position: absolute;
+                            left: 50px;
+                            bottom: -6px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 30px;
+                            height: 30px;
+                            color: black;
+                            font-size: 1rem;
+                            line-height: 1.2rem;
+                            border-radius: 50%;
+                            background-color: white;
+                            z-index: 3;
+                        }
+
                         .heroes-item-content {
-                            width: 100%;
+                            width: 280px;
                             margin-left: -50px;
                             background-color: gray;
-                            height: 70px;
+                            height: 60px;
                             z-index: 1;
+
+                            span {
+                                display: block;
+                                margin: 10px 0 0 60px;
+                                font-size: 0.9rem;
+                                text-transform: uppercase;
+                            }
+
+                            .heroes-stats {
+                                display: flex;
+
+                                span {
+                                    font-size: 0.8rem;
+                                }
+                            }
                         }
                     }
                 }

@@ -29,8 +29,9 @@ export default new Vuex.Store({
         getMessages: state => state.messages ? state.messages : [],
         hasMessages: state => state.messages.length > 0,
         teamLevel: state => {
-            if (state.heroes) {
-                const heroes = state.heroes
+            if (state.currentTeam.heroes) {
+                const heroes = state.currentTeam.heroes
+                console.log(heroes)
                 let level = 0
                 heroes.map(el => {
                     level += el.level

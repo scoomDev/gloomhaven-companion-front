@@ -7,8 +7,19 @@ import Login from '../views/Login.vue'
 import Characters from '../views/CharacterList.vue'
 import Team from '../views/Team'
 import HeroCompanion from "../views/HeroCompanion"
+import Axios from 'axios'
 
 Vue.use(VueRouter)
+
+Axios.interceptors.response.use(function (response) {
+  return response
+}, function (error) {
+  if (error.response.data.code === 401) {
+    store.dispatch('logout')
+    router.push('/login')
+  }
+  return Promise.reject(error)
+})
 
 const routes = [
   {

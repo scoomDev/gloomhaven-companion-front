@@ -26,10 +26,36 @@
         flex-direction: column;
         align-items: center;
         max-width: 768px;
-        height: 100vh;
+        min-height: 100vh;
         margin: 0 auto;
 
         background-color: #cdcdcd;
+        overflow-x: none;
+        overflow-y: auto;
+
+
+        input {
+            height: 30px;
+            margin: 0;
+            padding: 0.4rem 0.6rem;
+            background-color: #9f9f9f;
+            border: 1px solid;
+
+            &:focus {
+                border: 1px solid gray;
+                outline: none;
+            }
+        }
+
+        textarea {
+            padding: 0.4rem 0.6rem;
+            background-color: #9f9f9f;
+
+            &:focus {
+                border: 1px solid gray;
+                outline: none;
+            }
+        }
     }
 
     #nav {

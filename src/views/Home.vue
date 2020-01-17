@@ -13,9 +13,9 @@
                     <div class="team-item-content">
                         <div>
                             <h2>{{ team.name }}</h2>
-                            <div>6/17</div>
+                            <div>{{ team.heroes.length }}/17</div>
                         </div>
-                        <div>{{ team.reputation }}</div>
+                        <div class="reputation">{{ team.reputation }}</div>
                     </div>
                 </router-link>
             </li>
@@ -41,7 +41,7 @@
                     text-decoration: none;
 
                     picture {
-                        width: 200px;
+                        width: 30%;
                         height: 100px;
                         overflow: hidden;
                         z-index: 1;
@@ -75,10 +75,16 @@
                         }
 
                         h2 {
+                            width: 85%;
                             margin: 0;
                             padding: 0;
                             color: white;
-                            font-size: 1.4rem;
+                            font-size: 1.2rem;
+                        }
+
+                        .reputation {
+                            width: 15%;
+                            text-align: center;
                         }
                     }
                 }
