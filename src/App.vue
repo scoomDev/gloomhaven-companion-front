@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <Header />
+        <MessageFlash />
         <router-view/>
     </div>
 </template>
@@ -15,6 +16,10 @@
         padding: 0;
     }
 
+    body {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    }
+
     #app {
         position: relative;
         display: flex;
@@ -23,12 +28,6 @@
         max-width: 768px;
         height: 100vh;
         margin: 0 auto;
-
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
 
         background-color: #cdcdcd;
     }
@@ -49,10 +48,12 @@
 
 <script>
     import Header from "./components/Header"
+    import MessageFlash from "./components/MessageFlash"
 
     export default {
         components: {
-            Header
+            Header,
+            MessageFlash
         },
         created: function () {
             this.$http.interceptors.response.use(undefined, function (err) {

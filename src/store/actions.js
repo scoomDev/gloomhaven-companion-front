@@ -12,10 +12,11 @@ export default {
                     sessionStorage.setItem('token', token)
                     Axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
                     commit('auth_success', {token: token, user: user})
+                    commit('add_message', {state: 'success', content: 'Connexion réussi'})
                     resolve(response)
                 })
                 .catch(error => {
-                    commit('auth_error', error.response.data)
+                    commit('add_message', {state: 'error', content: error.response.data})
                     sessionStorage.removeItem('token')
                     reject(error.response.data)
                 })
@@ -37,6 +38,7 @@ export default {
                     sessionStorage.setItem('token', token)
                     Axios.defaults.headers.common['Authorization'] = 'Bearer' + token
                     commit('auth_success', token, user)
+                    commit('add_message', {state: 'success', content: 'Enregistremet réussi'})
                     resolve(response)
                 })
                 .catch(error => {
@@ -50,6 +52,7 @@ export default {
     logout({commit}) {
         return new Promise((resolve) => {
             commit('logout')
+            commit('add_message', {state: 'warning', content: 'Tu as été déco'})
             sessionStorage.removeItem('token')
             delete Axios.defaults.headers.common['Authorization']
             resolve()
@@ -95,7 +98,7 @@ export default {
             Axios.get(API_URL + `/teams/${teamId}/heroes`, {headers: {Authorization: 'Bearer ' + this.state.token}})
                 .then(response => {
                     const heroes = response.data['hydra:member']
-                    commit('success')
+                    commit('store_heroes', heroes)
                     resolve(heroes)
                 })
                 .catch(error => {

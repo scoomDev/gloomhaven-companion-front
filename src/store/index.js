@@ -8,7 +8,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         status: {},
+        messages: [],
         token: sessionStorage.getItem('token') || '',
+        heroes: [],
         currentUser: {},
         maxCharacter: 17,
         currentHero: {},
@@ -24,9 +26,28 @@ export default new Vuex.Store({
         gold: state => state.currentHero.gold,
         xp: state => state.currentHero.experience,
         note: state => state.currentHero.note,
+        getMessages: state => state.messages ? state.messages : [],
+        hasMessages: state => state.messages.length > 0,
+        teamLevel: state => {
+            if (state.heroes) {
+                const heroes = state.heroes
+                let level = 0
+                heroes.map(el => {
+                    level += el.level
+                })
+
+                return Math.ceil((level / heroes.length) / 2)
+            } else {
+                return 0
+            }
+        },
         life: state => {
-            const life = JSON.parse(state.currentHero["GameCharacter"].life)
-            return life[state.currentHero.level]
+            if(state.currentHero['GameCharacter']) {
+                const life = JSON.parse(state.currentHero["GameCharacter"].life)
+                return life[state.currentHero.level]
+            } else {
+                return 0
+            }
         }
     },
     mutations,
