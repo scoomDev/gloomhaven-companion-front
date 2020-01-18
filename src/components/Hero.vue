@@ -6,9 +6,11 @@
                     <img :src="avatarUrl" :alt="currentHero['GameCharacter'].name + 'Portrait'">
                 </picture>
                 <div class="hero-level">
-                    <ul class="next-level" v-show="editingLevel">
-                        <li v-for="(level, index) in changeLevel" :key="index" @click="updateLevel">{{ level }}</li>
-                    </ul>
+                    <transition name="fade-to-top">
+                        <ul class="next-level" v-show="editingLevel">
+                            <li v-for="(level, index) in changeLevel" :key="index" @click="updateLevel">{{ level }}</li>
+                        </ul>
+                    </transition>
                     <span @click="calculateLevel ? editingLevel = !editingLevel : false ">{{ currentHero.level }}</span>
                     <span class="add-level" v-show="calculateLevel">+</span>
                 </div>
@@ -22,27 +24,35 @@
                     </div>
                     <div>
                         <div class="hero-xp">
-                            <span v-show="!editingXp" @click="editingXp = true" data-field="xp">{{ xp }} xp</span>
-                            <input
-                                    type="text"
-                                    v-model="editXp"
-                                    v-show="editingXp"
-                                    v-focus="editingXp"
-                                    @blur="updateXp"
-                                    @keyup.enter="updateXp"
-                                    @keyup.esc="cancelEdit"
-                            >
+                            <transition name="fade">
+                                <span v-show="!editingXp" @click="editingXp = true" data-field="xp">{{ xp }} xp</span>
+                            </transition>
+                            <transition name="fade">
+                                <input
+                                        type="text"
+                                        v-model="editXp"
+                                        v-show="editingXp"
+                                        v-focus="editingXp"
+                                        @blur="updateXp"
+                                        @keyup.enter="updateXp"
+                                        @keyup.esc="cancelEdit"
+                                >
+                            </transition>
                         </div>
                         <div class="hero-gold">
-                            <span v-show="!editingGold" @click="editingGold = true">{{ gold }} or</span>
-                            <input
-                                    type="text" v-model="editGold"
-                                    v-show="editingGold"
-                                    v-focus="editingGold"
-                                    @blur="updateGold"
-                                    @keyup.enter="updateGold"
-                                    @keyup.esc="cancelEdit"
-                            >
+                            <transition name="fade">
+                                <span v-show="!editingGold" @click="editingGold = true">{{ gold }} or</span>
+                            </transition>
+                            <transition name="fade">
+                                <input
+                                        type="text" v-model="editGold"
+                                        v-show="editingGold"
+                                        v-focus="editingGold"
+                                        @blur="updateGold"
+                                        @keyup.enter="updateGold"
+                                        @keyup.esc="cancelEdit"
+                                >
+                            </transition>
                         </div>
                     </div>
                 </div>
@@ -51,36 +61,44 @@
         <hr>
         <div>
             <div class="hero-objects">
-                <input
-                        type="text"
-                        v-show="editingObject"
-                        v-focus="editingObject"
-                        v-model="object"
-                        @blur="addObject"
-                        @keyup.enter="addObject"
-                        @keyup.esc="cancelEdit"
-                >
-                <h3 v-show="!editingObject" class="add-object-btn">Équipements</h3>
+                <transition name="fade">
+                    <input
+                            type="text"
+                            v-show="editingObject"
+                            v-focus="editingObject"
+                            v-model="object"
+                            @blur="addObject"
+                            @keyup.enter="addObject"
+                            @keyup.esc="cancelEdit"
+                    >
+                </transition>
+                <transition name="fade">
+                    <h3 v-show="!editingObject" class="add-object-btn">Équipements</h3>
+                </transition>
                 <span @click="editingObject = true" data-field="object" class="add-object">+</span>
             </div>
-            <div class="hero-objects-list">
+            <transition-group name="fade-to-top" tag="div" class="hero-objects-list">
                 <span v-for="(object, index) in objects" :key="index" class="object-item">
-                    {{ object }} <span @click="removeObject" :data-value="object" class="remove-object">X</span>
+                        {{ object }} <span @click="removeObject" :data-value="object" class="remove-object">X</span>
                 </span>
-            </div>
+            </transition-group>
         </div>
         <hr>
         <div class="hero-note">
             <h3 @click="editingNote = true">Note</h3>
-            <p v-show="!editingNote" @click="editingNote = true">{{ note }}</p>
-            <textarea
-                    name="note"
-                    v-model="editNote"
-                    v-show="editingNote"
-                    v-focus="editingNote"
-                    @blur="updateNote"
-                    @keyup.esc="cancelEdit"
-            ></textarea>
+            <transition name="fade">
+                <p v-show="!editingNote" @click="editingNote = true">{{ note }}</p>
+            </transition>
+            <transition name="fade">
+                <textarea
+                        name="note"
+                        v-model="editNote"
+                        v-show="editingNote"
+                        v-focus="editingNote"
+                        @blur="updateNote"
+                        @keyup.esc="cancelEdit"
+                ></textarea>
+            </transition>
         </div>
     </div>
 </template>
@@ -106,8 +124,10 @@
                     width: 120px;
                     height: 120px;
                     margin-right: 1rem;
+                    border: 4px solid white;
                     border-radius: 50%;
                     overflow: hidden;
+                    box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.4);
 
                     img {
                         width: 100%;
@@ -172,7 +192,9 @@
                 h2 {
                     margin-top: 0;
                     padding-left: 0.6rem;
-                    font-size: 1.2rem;
+                    font-family: 'Pirata One', cursive;
+                    font-size: 2rem;
+                    line-height: 2rem;
                 }
 
                 .hero-stats-content {
@@ -215,11 +237,16 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            height: 30px;
 
             h3 {
                 height: 30px;
                 margin: 0;
                 padding: 0;
+            }
+
+            input {
+                position: absolute;
             }
         }
 
@@ -238,7 +265,7 @@
                 padding: 0 34px 0 0.2rem;
                 height: 20px;
                 font-size: 0.9rem;
-                outline: 1px solid gray;
+                outline: 1px solid #1f1f1f;
 
                 .remove-object {
                     position: absolute;
@@ -253,20 +280,25 @@
                     color: white;
                     font-size: 0.8rem;
                     line-height: 1rem;
-                    background-color: gray;
+                    background-color: #1f1f1f;
                 }
             }
         }
 
         .hero-note {
+            position: relative;
+            width: 100%;
             p {
                 width: 100%;
                 white-space: pre-line;
             }
 
             textarea {
+                position: absolute;
+                top: 40px;
                 width: 100%;
                 height: 150px;
+                margin-bottom: 30px;
             }
         }
     }
@@ -329,9 +361,7 @@
         methods: {
             cancelEdit(e) {
                 const field = e.target.getAttribute('data-field')
-                console.log(field)
                 const fieldState = "editing" + field[0].toUpperCase() + field.slice(1);
-                console.log(fieldState)
                 e.target.value = this.currentHero[field]
                 this[fieldState] = false
             },
@@ -378,11 +408,12 @@
             addObject(evt) {
                 const value = evt.target.value
                 if (value) {
-                    const objects = [...this.objects, value]
+                    let objects = [];
+                    if (this.objects) objects = [...this.objects, value]
+                    else objects.push(value)
                     this.$store.dispatch('updateHero', {heroId: this.currentHero.id, data: {objects: objects}})
                 }
-                console.log('empty value')
-                evt.target.value = ""
+                this.object = ""
                 this.editingObject = false
             }
         }

@@ -128,12 +128,10 @@ export default {
                 }
             )
                 .then(response => {
-                    console.log(response)
                     commit('store_current_hero', response.data)
                     resolve(response)
                 })
                 .catch(error => {
-                    console.log(error)
                     reject(error)
                 })
         })

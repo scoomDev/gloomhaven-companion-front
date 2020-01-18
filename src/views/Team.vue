@@ -14,7 +14,7 @@
                             <span>{{ hero.name }}</span>
                             <div class="heroes-stats">
                                 <span class="heroes.gold">{{ hero.gold}}</span>
-                                <span class="heroes.gold">{{ hero.objects.length}}</span>
+                                <span class="heroes.gold">{{ hero.objects ? hero.objects.length : 0}}</span>
                                 <span class="heroes.gold">{{ hero.experience}}</span>
                             </div>
                         </div>

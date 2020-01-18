@@ -31,7 +31,6 @@ export default new Vuex.Store({
         teamLevel: state => {
             if (state.currentTeam.heroes) {
                 const heroes = state.currentTeam.heroes
-                console.log(heroes)
                 let level = 0
                 heroes.map(el => {
                     level += el.level

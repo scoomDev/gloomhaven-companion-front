@@ -17,7 +17,7 @@
     }
 
     body {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        font-family: 'Open Sans', sans-serif;
     }
 
     #app {
@@ -29,7 +29,7 @@
         min-height: 100vh;
         margin: 0 auto;
 
-        background-color: #cdcdcd;
+        background-color: #b9a78b;
         overflow-x: none;
         overflow-y: auto;
 
@@ -55,6 +55,36 @@
                 border: 1px solid gray;
                 outline: none;
             }
+        }
+
+        hr {
+            width: 100%;
+            height: 1px;
+            background-color: #222222;
+            outline: none;
+            border: none;
+        }
+
+        // ANIMATIONS
+        // =============================================================================================================
+        .fade-to-top-enter-active {
+            transition: all .3s ease;
+        }
+        .fade-to-top-leave-active {
+            transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+        .fade-to-top-enter, .fade-to-top-leave-to {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        .fade-enter-active {
+            transition: opacity .3s ease-in-out;
+        }
+        .fade-leave-active {
+            transition: opacity .3s ease-in-out;
+        }
+        .fade-enter, .fade-leave-to {
+            opacity: 0;
         }
     }
 

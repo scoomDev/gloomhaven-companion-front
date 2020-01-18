@@ -14,7 +14,7 @@
         width: 100%;
         padding: 1rem;
         color: white;
-        background-color: gray;
+        background-color: #918072;
 
         .logout-btn {
             cursor: pointer;
