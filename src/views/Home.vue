@@ -15,7 +15,7 @@
                             <h2>{{ team.name }}</h2>
                             <div>{{ team.heroes.length }}/17</div>
                         </div>
-                        <div class="reputation">{{ team.reputation }}</div>
+                        <div class="reputation">{{ team.reputation }} rep</div>
                     </div>
                 </router-link>
             </li>

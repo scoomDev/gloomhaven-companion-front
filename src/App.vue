@@ -33,6 +33,11 @@
         overflow-x: none;
         overflow-y: auto;
 
+        ul {
+            li {
+                list-style: none;
+            }
+        }
 
         input {
             height: 30px;

@@ -12,7 +12,7 @@ export default {
                     sessionStorage.setItem('token', token)
                     Axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
                     commit('auth_success', {token: token, user: user})
-                    commit('add_message', {state: 'success', content: 'Connexion réussi'})
+                    commit('add_message', {state: 'success', content: `Bon retour parmi nous ${user.username}`})
                     resolve(response)
                 })
                 .catch(error => {

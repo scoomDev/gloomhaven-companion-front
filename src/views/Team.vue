@@ -1,27 +1,29 @@
 <template>
-    <div class="team">
+    <div>
         <team-header/>
-        <ul class="heroes-list">
-            <li v-for="hero in heroes" :key="hero.id">
-                <router-link :to="{ 'name':  'hero', 'params': { 'id': hero.id }}"
-                             v-on:click.native="storeCurrentHero(hero)">
-                    <div class="heroes-item">
-                        <picture>
-                            <img :src="require('../assets/images/' + hero.GameCharacter.name + '-portrait.jpg')" alt="">
-                        </picture>
-                        <span class="heroes-level">{{ hero.level }}</span>
-                        <div class="heroes-item-content">
-                            <span>{{ hero.name }}</span>
-                            <div class="heroes-stats">
-                                <span class="heroes.gold">{{ hero.gold}}</span>
-                                <span class="heroes.gold">{{ hero.objects ? hero.objects.length : 0}}</span>
-                                <span class="heroes.gold">{{ hero.experience}}</span>
+        <div class="team">
+            <ul class="heroes-list">
+                <li v-for="hero in heroes" :key="hero.id">
+                    <router-link :to="{ 'name':  'hero', 'params': { 'id': hero.id }}"
+                                 v-on:click.native="storeCurrentHero(hero)">
+                        <div class="heroes-item">
+                            <picture>
+                                <img :src="require('../assets/images/' + hero.GameCharacter.name + '-portrait.jpg')" alt="">
+                            </picture>
+                            <span class="heroes-level">{{ hero.level }}</span>
+                            <div class="heroes-item-content">
+                                <span>{{ hero.name }}</span>
+                                <div class="heroes-stats">
+                                    <span class="heroes.gold">{{ hero.gold}}</span>
+                                    <span class="heroes.gold">{{ hero.objects ? hero.objects.length : 0}}</span>
+                                    <span class="heroes.gold">{{ hero.experience}}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </router-link>
-            </li>
-        </ul>
+                    </router-link>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
