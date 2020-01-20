@@ -2,6 +2,7 @@
     <div>
         <team-header/>
         <div class="team">
+            <router-link class="add-hero" :to="{ 'name': 'team-add-hero' }">Créer un nouveau héro</router-link>
             <ul class="heroes-list">
                 <li v-for="hero in heroes" :key="hero.id">
                     <router-link :to="{ 'name':  'hero', 'params': { 'id': hero.id }}"
@@ -30,6 +31,18 @@
 <style lang="scss">
     .team {
         width: 100%;
+
+        .add-hero {
+            display: block;
+            max-width: 290px;
+            margin: 1rem auto;
+            padding: 0.6rem 0.8rem;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            background-color: #747465;
+        }
 
         .heroes-list {
             margin: 0;

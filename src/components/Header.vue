@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <span><router-link :to="{ 'name': 'home' }">Gloomhaven</router-link></span>
+        <router-link :to="{ 'name': 'home' }" class="header-logo"><img :src="require('../assets/gloomhaven-logo.png')" alt=""></router-link>
         <span v-if="isLoggedIn" class="logout-btn">
             <a @click="logout">Logout</a>
         </span>
@@ -11,13 +11,42 @@
     .header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         width: 100%;
-        padding: 1rem;
+        padding: 0.5rem;
         color: white;
         background-color: #918072;
 
+        .header-logo {
+            display: flex;
+            align-items: center;
+            width: 160px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
         .logout-btn {
             cursor: pointer;
+        }
+    }
+</style>
+
+<style lang="scss">
+    .header {
+        .header-logo {
+            width: 140px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
         }
     }
 </style>

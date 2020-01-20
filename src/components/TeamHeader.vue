@@ -2,7 +2,7 @@
     <div class="team-header">
         <div class="team-stats">
             <picture>
-                <div v-if="isHeroPage" class="open-team close" @click="toggleTeam">+</div>
+                <div v-if="isHeroPage && team.achievements" class="open-team close" @click="toggleTeam">+</div>
                 <img src="../assets/images/fog_forest.jpg" alt="">
             </picture>
             <div class="team-item-content">

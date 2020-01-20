@@ -24,6 +24,9 @@ export default {
         state.status = ''
         state.token = ''
     },
+    store_characters(state, payload) {
+        state.characters = payload
+    },
     store_heroes(state, payload) {
         state.heroes = payload
     },

@@ -59,11 +59,13 @@ export default {
         })
     },
 
-    getCharacter() {
+    getCharacter({ commit }) {
         return new Promise((resolve, reject) => {
             Axios.get(API_URL + '/game_characters', {headers: {Authorization: 'Bearer ' + this.state.token}})
                 .then(response => {
-                    resolve(response.data['hydra:member'])
+                    const characters = response.data['hydra:member']
+                    commit('store_characters', characters)
+                    resolve(characters)
                 })
                 .catch(error => {
                     reject(error)

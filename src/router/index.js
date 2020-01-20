@@ -8,6 +8,7 @@ import Characters from '../views/CharacterList.vue'
 import Team from '../views/Team'
 import HeroCompanion from "../views/HeroCompanion"
 import Axios from 'axios'
+import AddHero from "../views/AddHero"
 
 Vue.use(VueRouter)
 
@@ -52,6 +53,14 @@ const routes = [
     path: '/characters',
     name: 'characters',
     component: Characters,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/team/:id/add-hero',
+    name: 'team-add-hero',
+    component: AddHero,
     meta: {
       requireAuth: true
     }

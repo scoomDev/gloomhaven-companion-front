@@ -11,6 +11,7 @@ export default new Vuex.Store({
         messages: [],
         token: sessionStorage.getItem('token') || '',
         heroes: [],
+        characters: [],
         currentUser: {},
         maxCharacter: 17,
         currentHero: {},
@@ -19,6 +20,8 @@ export default new Vuex.Store({
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
+        characters: state => state.characters,
+        heroes: state => state.currentTeam.heroes,
         currentUser: state => state.currentUser,
         currentHero: state => state.currentHero,
         currentTeam: state => state.currentTeam,
