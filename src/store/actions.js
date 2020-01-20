@@ -27,22 +27,24 @@ export default {
     },
 
     register({commit}, user) {
-        const bodyFormData = new FormData();
-        bodyFormData.set('username', user.username)
-        bodyFormData.set('password', user.password)
+        console.log(user)
         return new Promise((resolve, reject) => {
             commit('auth_request')
-            Axios.post(API_URL + '/register', bodyFormData, {headers: {'Content-Type': 'multipart/form-data'}})
+            Axios.post(API_URL + '/register', user, {headers: {'Content-Type': 'application/json'}})
                 .then(response => {
+                    console.log(response)
                     const token = response.data.token
                     sessionStorage.setItem('token', token)
                     Axios.defaults.headers.common['Authorization'] = 'Bearer' + token
-                    commit('auth_success', token, user)
-                    commit('add_message', {state: 'success', content: 'Enregistremet réussi'})
+                    commit('auth_success', {token: token, user: user})
+                    commit('add_message', {state: 'success', content: 'Bah enfin !!!'})
                     resolve(response)
                 })
                 .catch(error => {
-                    commit('auth_error', error)
+                    commit('add_message', {
+                        state: "error",
+                        content: error
+                    })
                     sessionStorage.removeItem('token')
                     reject(error)
                 })
@@ -52,7 +54,7 @@ export default {
     logout({commit}) {
         return new Promise((resolve) => {
             commit('logout')
-            commit('add_message', {state: 'warning', content: 'Tu as été déco'})
+            commit('add_message', {state: 'warning', content: 'C\'est ça... Casse toi !'})
             sessionStorage.removeItem('token')
             delete Axios.defaults.headers.common['Authorization']
             resolve()
@@ -60,6 +62,7 @@ export default {
     },
 
     getCharacter({ commit }) {
+        console.log('get characters')
         return new Promise((resolve, reject) => {
             Axios.get(API_URL + '/game_characters', {headers: {Authorization: 'Bearer ' + this.state.token}})
                 .then(response => {

@@ -34,7 +34,7 @@
 </style>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapGetters } from 'vuex'
     import TeamHeader from "../components/TeamHeader"
     import GameCharacter from "../components/GameCharacter"
 
@@ -52,8 +52,10 @@
                 heroGold: ""
             }
         },
+        created() {
+            this.$store.dispatch('getCharacter')
+        },
         computed: {
-            ...mapActions(['getCharacter']),
             ...mapGetters(['characters']),
         },
         methods: {

@@ -1,22 +1,48 @@
 <template>
-    <div>
-        <h2>Register</h2>
-        <form @submit.prevent="register">
-            <div>
-                <input type="text" placeholder="username" v-model="username">
-            </div>
-            <div>
-                <input type="password" placeholder="password" v-model="password">
-            </div>
-            <div>
-                <input type="password" placeholder="Confirm password" v-model="passwordConfirmation">
-            </div>
-            <div>
-                <button type="submit">Register</button>
-            </div>
+    <div id="registerPage">
+        <h2>Viens! <br>On est bien !</h2>
+        <form @submit.prevent="register" class="register">
+            <input type="text" placeholder="username" v-model="username">
+            <input type="password" placeholder="password" v-model="password">
+            <input type="password" placeholder="Confirm password" v-model="passwordConfirmation">
+            <button type="submit">I'm comiiiing !!!!</button>
         </form>
     </div>
 </template>
+
+<style lang="scss">
+    #registerPage {
+        h2 {
+            font-family: 'Pirata One', cursive;
+            font-size: 4rem;
+            line-height: 4rem;
+            text-align: center;
+        }
+
+        .register {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            justify-content: center;
+
+            input {
+                margin: 0.5rem auto;
+            }
+
+            button {
+                width: 150px;
+                margin: 1rem auto;
+                padding: 0.4rem 0.6rem;
+                color: white;
+                font-weight: bold;
+                border: none;
+                background: rgb(92,62,28);
+                background: linear-gradient(0deg, rgba(92,62,28,1) 0%, rgba(131,84,40,1) 40%, rgba(252,205,108,1) 100%);
+                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+            }
+        }
+    }
+</style>
 
 <script>
     export default {
@@ -29,23 +55,40 @@
         },
         methods: {
             register: function () {
-                if (this.username && this.password) {
-                    let info = {
-                        username: this.username,
-                        password: this.password
-                    }
-
-                    this.$store.dispatch('register', info).then((response) => {
-                        if (response.data.error) console.error(response.data.error) // todo: add message flash
-                        else {
-                            console.log(response)
-                            this.$router.push('login')
+                if (this.username && this.password && this.passwordConfirmation) {
+                    if (this.password === this.passwordConfirmation) {
+                        let info = {
+                            username: this.username,
+                            password: this.password
                         }
+                        this.$store.dispatch('register', info).then((response) => {
+                            if (response.data.error) console.error(response.data.error)
+                            else this.$router.push('/')
 
-                    })
+                        })
+                    } else {
+                        this.$store.commit('add_message', {
+                            state: "error",
+                            content: "Tu te fous de ma gueule gros :/ ? T'es pas capable de mettre deux fois le même mot de passe ???"
+                        })
+                    }
                 } else {
-                    // todo: add error message flash
-                    console.error('veuillez remplir les champs requis')
+                    if(!this.username) {
+                        this.$store.commit('add_message', {
+                            state: "error",
+                            content: "Remplis ton usernameuh !!!"
+                        })
+                    } else if(!this.password) {
+                        this.$store.commit('add_message', {
+                            state: "error",
+                            content: "Remplis ton mot de passeuh !!!"
+                        })
+                    } else if(!this.passwordConfirmation) {
+                        this.$store.commit('add_message', {
+                            state: "error",
+                            content: "Confirme ton mot de passeuh !!!"
+                        })
+                    }
                 }
             }
 

@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div id="login">
         <h2>Viens ! Connecte toi !</h2>
         <transition name="slide-fade">
             <div v-if="errors.state" :class="{ 'alert-error': errors.state = 'error' }">
                 {{ errors.message }}
             </div>
         </transition>
-        <form class="login" @submit.prevent="login">
+        <form class="login-form" @submit.prevent="login">
             <div>
                 <input type="text" placeholder="username" v-model="username" @focus="resetErrors">
             </div>
@@ -17,36 +17,71 @@
                 <button type="submit">Ça va ! J'arrive !</button>
             </div>
         </form>
-        <div>
+        <div class="register-link">
             <router-link v-if="!isLoggedIn" to="/register">J'ai pas de compte gros !</router-link>
         </div>
     </div>
 </template>
 
 <style lang="scss">
-    .alert-error {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: block;
-        margin: 2rem 0;
-        padding: 0.8rem 1.2rem;
-        color: #5b0000;
-        background-color: rgba(255, 119, 111, 0.71);
-        z-index: 1;
+    #login {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 40px);
+
+        h2 {
+            font-family: 'Pirata One', cursive;
+            font-size: 4rem;
+            line-height: 4rem;
+            text-align: center;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
+            input {
+                margin: 0.5rem auto;
+            }
+
+            button {
+                width: 150px;
+                margin: 1rem auto;
+                padding: 0.4rem 0.6rem;
+                color: white;
+                font-weight: bold;
+                border: none;
+                background: rgb(92,62,28);
+                background: linear-gradient(0deg, rgba(92,62,28,1) 0%, rgba(131,84,40,1) 40%, rgba(252,205,108,1) 100%);
+                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .register-link {
+            margin-top: auto;
+            margin-bottom: 1rem;
+            text-align: center;
+
+            a {
+                color: black;
+            }
+        }
+
+        .alert-error {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: block;
+            margin: 2rem 0;
+            padding: 0.8rem 1.2rem;
+            color: #5b0000;
+            background-color: rgba(255, 119, 111, 0.71);
+            z-index: 1;
+        }
     }
 
-    .slide-fade-enter-active {
-        transition: all .3s ease;
-    }
-    .slide-fade-leave-active {
-        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-    .slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active below version 2.1.8 */ {
-        transform: translateX(10px);
-        opacity: 0;
-    }
 </style>
 
 <script>
