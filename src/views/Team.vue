@@ -13,11 +13,11 @@
                             </picture>
                             <span class="heroes-level">{{ hero.level }}</span>
                             <div class="heroes-item-content">
-                                <span>{{ hero.name }}</span>
+                                <h2>{{ hero.name }}</h2>
                                 <div class="heroes-stats">
-                                    <span class="heroes.gold">{{ hero.gold}}</span>
-                                    <span class="heroes.gold">{{ hero.objects ? hero.objects.length : 0}}</span>
-                                    <span class="heroes.gold">{{ hero.experience}}</span>
+                                    <span class="heroes.gold">{{ hero.gold}} or</span>
+                                    <span class="heroes.gold">{{ hero.objects ? hero.objects.length : 0}} objs</span>
+                                    <span class="heroes.gold">{{ hero.experience}} xp</span>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                 list-style: none;
 
                 a {
-                    color: white;
+                    color: $col_black;
                     text-decoration: none;
 
                     .heroes-item {
@@ -96,20 +96,27 @@
 
                         .heroes-item-content {
                             width: 280px;
-                            margin-left: -50px;
-                            background-color: gray;
                             height: 60px;
+                            margin-left: -40px;
+                            padding-left: 50px;
+                            padding-right: 1rem;
+                            border-radius: 0 4px 4px 0;
+                            background-color: $col_mid_grey;
                             z-index: 1;
 
-                            span {
-                                display: block;
-                                margin: 10px 0 0 60px;
-                                font-size: 0.9rem;
-                                text-transform: uppercase;
+                            h2 {
+                                width: 100%;
+                                margin: 0.5rem 0 0.2rem 0;
+                                font-size: 1.6rem;
+                                line-height: 1.6rem;
+                                font-weight: bold;
+                                font-family: $font_pirata;
+                                text-transform: capitalize;
                             }
 
                             .heroes-stats {
                                 display: flex;
+                                justify-content: space-between;
 
                                 span {
                                     font-size: 0.8rem;

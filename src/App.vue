@@ -29,8 +29,8 @@
         min-height: 100vh;
         margin: 0 auto;
 
-        background-color: #b9a78b;
-        overflow-x: none;
+        background-color: $col_bg;
+        overflow-x: hidden;
         overflow-y: auto;
 
         ul {
@@ -39,25 +39,13 @@
             }
         }
 
-        input {
-            height: 30px;
-            margin: 0;
-            padding: 0.4rem 0.6rem;
-            background-color: #9f9f9f;
-            border: 1px solid;
-
-            &:focus {
-                border: 1px solid gray;
-                outline: none;
-            }
-        }
-
         textarea {
             padding: 0.4rem 0.6rem;
-            background-color: #9f9f9f;
+            border: 1px solid $col_mid_grey;
+            background-color: $col_mid_grey;
 
             &:focus {
-                border: 1px solid gray;
+                border: 1px solid $col_black;
                 outline: none;
             }
         }
@@ -65,7 +53,7 @@
         hr {
             width: 100%;
             height: 1px;
-            background-color: #222222;
+            background-color: $col_black;
             outline: none;
             border: none;
         }
@@ -101,19 +89,6 @@
             /* .slide-fade-leave-active below version 2.1.8 */ {
             transform: translateX(10px);
             opacity: 0;
-        }
-    }
-
-    #nav {
-        padding: 30px;
-
-        a {
-            font-weight: bold;
-            color: #2c3e50;
-
-            &.router-link-exact-active {
-                color: #42b983;
-            }
         }
     }
 </style>

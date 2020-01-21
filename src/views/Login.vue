@@ -30,7 +30,7 @@
         height: calc(100vh - 40px);
 
         h2 {
-            font-family: 'Pirata One', cursive;
+            font-family: $font_pirata;
             font-size: 4rem;
             line-height: 4rem;
             text-align: center;
@@ -43,19 +43,12 @@
             width: 100%;
 
             input {
+                @extend %input;
                 margin: 0.5rem auto;
             }
 
             button {
-                width: 150px;
-                margin: 1rem auto;
-                padding: 0.4rem 0.6rem;
-                color: white;
-                font-weight: bold;
-                border: none;
-                background: rgb(92,62,28);
-                background: linear-gradient(0deg, rgba(92,62,28,1) 0%, rgba(131,84,40,1) 40%, rgba(252,205,108,1) 100%);
-                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+                @extend %button;
             }
         }
 

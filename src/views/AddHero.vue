@@ -9,18 +9,24 @@
                     @editCharacter="editCharacter"
             />
         </div>
-        <div v-if="editHero">
-            <input type="hidden" name="character-id" :value="characterId">
-            <div>
+        <div v-if="editHero" class="add-hero-form">
+            <h2>{{ characterName }}</h2>
+            <div class="input-group">
                 <label for="hero-name">Nom du Héro</label>
-                <input type="text" name="hero-name" :value="heroName">
+                <input type="text" name="hero-name" v-model="heroName">
             </div>
-            <div>
+            <div class="input-group">
+                <label for="hero-level">Level de départ</label>
+                <input type="text" name="hero-level" :value="heroLevel">
+            </div>
+            <div class="input-group">
                 <label for="hero-gold">Or de départ</label>
                 <input type="text" name="hero-gold" :value="heroGold">
             </div>
-            <button type="submit">Créer</button>
-            <button @click="cancelEdit">Annuler</button>
+            <div class="button-group">
+                <button type="submit" @click="addCharacter">Créer</button>
+                <button @click="cancelEdit">Annuler</button>
+            </div>
         </div>
     </div>
 </template>
@@ -29,6 +35,42 @@
     .add-hero {
         .character-list {
             width: 100%;
+        }
+
+        .add-hero-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1rem 0;
+
+            h2 {
+                margin: 0 0 1rem 0;
+                font-family: $font_pirata;
+                font-size: 3rem;
+                line-height: 3rem;
+                text-transform: capitalize;
+            }
+
+            .input-group {
+                margin: 0.5rem 0;
+
+                label {
+                    display: block;
+                }
+
+                input {
+                    @extend %input;
+                }
+            }
+
+            .button-group {
+                margin: 1rem 0;
+                button {
+                    @extend %button;
+                    display: block;
+                    margin: 0.5rem 0;
+                }
+            }
         }
     }
 </style>
@@ -48,8 +90,9 @@
                 editHero: false,
                 characterId: null,
                 characterName: null,
-                heroName: "",
-                heroGold: ""
+                heroName: null,
+                heroLevel: 1,
+                heroGold: 30
             }
         },
         created() {
@@ -63,11 +106,39 @@
                 this.editHero = true
                 this.characterId = character.id
                 this.characterName = character.name
-                console.log(character)
+            },
+            addCharacter() {
+                if (this.characterId && this.heroName) {
+                    const data = {
+                        name: this.heroName,
+                        level: this.heroLevel.toString(),
+                        gold: this.heroGold.toString(),
+                        GameCharacter: `/api/game_characters/${this.characterId}`,
+                        team: '/api/teams/1'
+                    }
+                    this.$store.dispatch('addNewHero', data)
+                        .then(() => {
+                            const teamId = sessionStorage.getItem('current_team_id')
+                            this.$router.push(`/team/${teamId}`)
+                        })
+                } else {
+                    if (!this.heroName) {
+                        this.$store.commit('add_message', {
+                            state: "error",
+                            content: "Tu ne donnerais pas un p'tit nom à ton Héro ? Si, hein ?"
+                        })
+                    } else {
+                        this.$store.commit('add_message', {
+                            state: "error",
+                            content: "Y'a comme une couille dans le pâté on dirait :/"
+                        })
+                    }
+                }
             },
             cancelEdit() {
                 this.heroName = ""
-                this.heroGold = ""
+                this.heroLevel = 1
+                this.heroGold = 30
                 this.editHero = false
             }
         }

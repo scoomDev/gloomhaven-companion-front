@@ -1,5 +1,5 @@
 <template>
-    <div class="character-item" @click="editCharacter" :class="isInTeam().length === 1 ? 'active' : ''">
+    <div class="character-item" @click="editCharacter" :class="isInTeam() === this.heroes.length ? '' : 'active'">
         <picture>
             <img
                     :src="require(`../assets/images/${character.name}-portrait.jpg`) || ''"
@@ -50,14 +50,14 @@
             margin-left: -40px;
             padding: 0.5rem 0 0.5rem 60px;
             border-radius: 0 5px 5px 0;
-            background-color: #6e6e6e;
+            background-color: $col_mid_grey;
 
             .character-name {
                 width: 100%;
                 font-size: 2rem;
                 line-height: 2rem;
                 font-weight: bold;
-                font-family: 'Pirata One', cursive;
+                font-family: $font_pirata;
                 text-transform: capitalize;
             }
 
@@ -85,7 +85,8 @@
                 this.$emit('editCharacter', {id: this.character.id, name: this.character.name})
             },
             isInTeam() {
-                return  this.heroes.filter(hero => hero.GameCharacter.id != this.character.id)
+                const heroes = this.heroes.filter(hero => hero.GameCharacter.id !== this.character.id)
+                return heroes.length
             }
         }
     }

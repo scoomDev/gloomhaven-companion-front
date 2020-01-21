@@ -140,5 +140,27 @@ export default {
                     reject(error)
                 })
         })
+    },
+
+    addNewHero( { commit }, data) {
+        return new Promise( ((resolve, reject) => {
+            Axios.post(
+                API_URL + `/heroes`,
+                data,
+                {
+                    headers: {'Content-Type': 'application/json'}
+                }
+            )
+                .then(response => {
+                    commit('add_message', {
+                        state: "success",
+                        content: "Good job !"
+                    })
+                    resolve(response)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        }))
     }
 }
