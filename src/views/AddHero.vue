@@ -17,11 +17,11 @@
             </div>
             <div class="input-group">
                 <label for="hero-level">Level de départ</label>
-                <input type="text" name="hero-level" :value="heroLevel">
+                <input type="text" name="hero-level" v-model="heroLevel">
             </div>
             <div class="input-group">
                 <label for="hero-gold">Or de départ</label>
-                <input type="text" name="hero-gold" :value="heroGold">
+                <input type="text" name="hero-gold" v-model="heroGold">
             </div>
             <div class="button-group">
                 <button type="submit" @click="addCharacter">Créer</button>

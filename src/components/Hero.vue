@@ -220,11 +220,9 @@
                             height: 30px;
                             padding: 0.4rem 0.6rem;
                             input {
+                                @extend %input;
                                 position: absolute;
-                                top: 0;
                                 left: 0;
-                                display: block;
-                                width: 100%;
                             }
                         }
                     }
@@ -246,6 +244,7 @@
             }
 
             input {
+                @extend %input;
                 position: absolute;
             }
         }
