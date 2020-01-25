@@ -9,7 +9,10 @@
         <div class="character-info">
             <span class="character-name">{{ character.name }}</span>
             <span class="character-max-card">{{ character.maxCard }} cards</span> |
-            <span>maxLife {{ getMaxLife }}</span>
+            <span>
+                <img src="../assets/icons/heal.png" alt="">
+                {{ getMaxLife }}
+            </span>
         </div>
     </div>
 </template>
@@ -54,11 +57,22 @@
 
             .character-name {
                 width: 100%;
-                font-size: 2rem;
-                line-height: 2rem;
+                font-size: 1.8rem;
+                line-height: 1.8rem;
                 font-weight: bold;
                 font-family: $font_pirata;
                 text-transform: capitalize;
+            }
+
+            span {
+                display: flex;
+                align-items: center;
+                img {
+                    max-width: 16px;
+                    max-height: 18px;
+                    margin-right: 5px;
+                    object-fit: contain;
+                }
             }
 
             .character-max-card {

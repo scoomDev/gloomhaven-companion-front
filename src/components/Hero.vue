@@ -14,18 +14,27 @@
                     <span @click="calculateLevel ? editingLevel = !editingLevel : false ">{{ currentHero.level }}</span>
                     <span class="add-level" v-show="calculateLevel">+</span>
                 </div>
+                <div class="hero-icon">
+                    <img :src="require(`../assets/icons/characters/${currentHero.GameCharacter.name}.png`)" alt="">
+                </div>
             </div>
             <div class="hero-stats">
                 <h2>{{ currentHero.name }}</h2>
                 <div class="hero-stats-content">
                     <div>
                         <span class="hero-max-card">{{currentHero["GameCharacter"].maxCard }} \\_\</span>
-                        <span class="hero-life">{{ life }} pv</span>
+                        <span class="hero-life">
+                            <img class="stats-icon" src="../assets/icons/heal.png" alt="">
+                            {{ life }}
+                        </span>
                     </div>
                     <div>
                         <div class="hero-xp">
                             <transition name="fade">
-                                <span v-show="!editingXp" @click="editingXp = true" data-field="xp">{{ xp }} xp</span>
+                                <span v-show="!editingXp" @click="editingXp = true" data-field="xp">
+                                    <img class="stats-icon" src="../assets/icons/xp.png" alt="">
+                                    {{ xp }}
+                                </span>
                             </transition>
                             <transition name="fade">
                                 <input
@@ -41,7 +50,10 @@
                         </div>
                         <div class="hero-gold">
                             <transition name="fade">
-                                <span v-show="!editingGold" @click="editingGold = true">{{ gold }} or</span>
+                                <span v-show="!editingGold" @click="editingGold = true">
+                                    <img class="stats-icon" src="../assets/icons/loot.png" alt="">
+                                    {{ gold }}
+                                </span>
                             </transition>
                             <transition name="fade">
                                 <input
@@ -185,6 +197,26 @@
                         border-radius: 50%;
                     }
                 }
+
+                .hero-icon {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 40px;
+                    height: 40px;
+                    padding: 4px;
+                    border-radius: 50%;
+                    background-color: $col_white;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
             }
 
             .hero-stats {
@@ -201,6 +233,11 @@
                     display: flex;
                     flex-direction: column;
                     width: 100%;
+
+                    .stats-icon {
+                        max-width: 16px;
+                        max-height: 18px;
+                    }
 
                     & > div {
                         display: flex;
@@ -329,12 +366,9 @@
             ...mapGetters(['currentHero', 'objects', 'gold', 'life', 'xp', 'note']),
             changeLevel() {
                 const xp = this.arrLevel.xp.filter(xp => xp <= this.xp)
-                const newLevel = this.arrLevel.level.filter( (level) => {
-                    console.log(this.arrLevel.level[xp.length])
+                return this.arrLevel.level.filter( (level) => {
                     return level > this.currentHero.level && level <= this.arrLevel.level[xp.length - 1]
                 })
-
-                return newLevel
             },
             calculateLevel() {
                 return this.changeLevel.length > 0

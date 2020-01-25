@@ -54,7 +54,7 @@
 
         .register-link {
             margin-top: auto;
-            margin-bottom: 56px;
+            margin-bottom: calc(1rem + 56px);
             text-align: center;
 
             a {

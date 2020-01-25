@@ -75,9 +75,10 @@
             .team-item-content {
                 position: relative;
                 display: flex;
-                width: 100%;
+                width: 70%;
                 justify-content: space-around;
                 align-items: center;
+                padding: 0 4px;
                 color: white;
                 z-index: 2;
 
