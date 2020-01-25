@@ -55,7 +55,7 @@
                             password: this.password
                         }
                         this.$store.dispatch('register', info).then((response) => {
-                            if (response.data.error) console.error(response.data.error)
+                            if (response.data.error) return response.data.error
                             else this.$router.push('/')
 
                         })

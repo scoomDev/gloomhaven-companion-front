@@ -330,9 +330,12 @@
             ...mapGetters(['currentHero', 'objects', 'gold', 'life', 'xp', 'note']),
             changeLevel() {
                 const xp = this.arrLevel.xp.filter(xp => xp <= this.xp)
-                return this.arrLevel.level.filter( (level) => {
-                    return level > this.currentHero.level && level <= this.arrLevel.level[xp.length]
+                const newLevel = this.arrLevel.level.filter( (level) => {
+                    console.log(this.arrLevel.level[xp.length])
+                    return level > this.currentHero.level && level <= this.arrLevel.level[xp.length - 1]
                 })
+
+                return newLevel
             },
             calculateLevel() {
                 return this.changeLevel.length > 0
@@ -381,6 +384,7 @@
                     this.$store.dispatch('updateHero', {heroId: this.currentHero.id, data: data})
                 }
                 this.editingXp = false
+                this.editingLevel = false
             },
             updateNote(evt) {
                 const value = evt.target.value

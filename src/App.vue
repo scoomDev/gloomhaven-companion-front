@@ -26,7 +26,7 @@
         flex-direction: column;
         align-items: center;
         max-width: 768px;
-        min-height: 100vh;
+        min-height: calc(100vh - 56px);
         margin: 0 auto;
 
         background-color: $col_bg;

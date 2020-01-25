@@ -54,7 +54,7 @@
 
         .register-link {
             margin-top: auto;
-            margin-bottom: 1rem;
+            margin-bottom: 56px;
             text-align: center;
 
             a {
@@ -71,7 +71,7 @@
             padding: 0.8rem 1.2rem;
             color: #5b0000;
             background-color: rgba(255, 119, 111, 0.71);
-            z-index: 1;
+            z-ijsonndex: 1;
         }
     }
 

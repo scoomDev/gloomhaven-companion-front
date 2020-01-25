@@ -17,6 +17,10 @@
   border: 1px solid $col_mid_grey;
   background-color: $col_mid_grey;
 
+  &::placeholder {
+    color: $col_bg;
+  }
+
   &:focus {
     border: 1px solid $col_black;
     outline: none;

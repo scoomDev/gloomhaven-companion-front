@@ -1,6 +1,6 @@
 import Axios from "axios"
 
-const API_URL = 'http://127.0.0.1:8000/api'
+const API_URL = 'http://gloomapi.test/index.php/api'
 
 export default {
 
@@ -20,19 +20,14 @@ export default {
                     sessionStorage.removeItem('token')
                     reject(error.response.data)
                 })
-                .finally(() => {
-                    console.log('end of loading')
-                })
         })
     },
 
     register({commit}, user) {
-        console.log(user)
         return new Promise((resolve, reject) => {
             commit('auth_request')
             Axios.post(API_URL + '/register', user, {headers: {'Content-Type': 'application/json'}})
                 .then(response => {
-                    console.log(response)
                     const token = response.data.token
                     sessionStorage.setItem('token', token)
                     Axios.defaults.headers.common['Authorization'] = 'Bearer' + token
@@ -62,7 +57,6 @@ export default {
     },
 
     getCharacter({ commit }) {
-        console.log('get characters')
         return new Promise((resolve, reject) => {
             Axios.get(API_URL + '/game_characters', {headers: {Authorization: 'Bearer ' + this.state.token}})
                 .then(response => {
