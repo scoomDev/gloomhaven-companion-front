@@ -61,6 +61,7 @@
                     border: 2px solid rgba(255,255,255,0.7);
                     border-radius: 50%;
                     background-color: rgba(0,0,0,0.3);
+                    cursor: pointer;
                     z-index: 2;
                 }
 

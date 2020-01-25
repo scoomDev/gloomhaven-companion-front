@@ -1,6 +1,6 @@
 import Axios from "axios"
 
-const API_URL = 'http://gloomapi.test/index.php/api'
+const API_URL = 'http://127.0.0.1:8000/api'
 
 export default {
 
@@ -28,12 +28,20 @@ export default {
             commit('auth_request')
             Axios.post(API_URL + '/register', user, {headers: {'Content-Type': 'application/json'}})
                 .then(response => {
-                    const token = response.data.token
-                    sessionStorage.setItem('token', token)
-                    Axios.defaults.headers.common['Authorization'] = 'Bearer' + token
-                    commit('auth_success', {token: token, user: user})
-                    commit('add_message', {state: 'success', content: 'Bah enfin !!!'})
-                    resolve(response)
+                    if (response.data.error) {
+                        commit('add_message', {
+                            state: "error",
+                            content: response.data.error
+                        })
+                        reject(response)
+                    } else {
+                        const token = response.data.token
+                        sessionStorage.setItem('token', token)
+                        Axios.defaults.headers.common['Authorization'] = 'Bearer' + token
+                        commit('auth_success', {token: token, user: user})
+                        commit('add_message', {state: 'success', content: 'Bah enfin !!!'})
+                        resolve(response)
+                    }
                 })
                 .catch(error => {
                     commit('add_message', {
