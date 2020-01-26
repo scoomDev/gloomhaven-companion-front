@@ -1,10 +1,10 @@
 <template>
     <div class="heroes-item">
         <span class="heroes-icon">
-            <img :src="require(`../assets/icons/characters/${hero.GameCharacter.name}.png`)" alt="">
+            <img :src="require(`../assets/icons/characters/${hero.GameCharacter.name}.png`) || ''" alt="">
         </span>
         <picture>
-            <img :src="require('../assets/images/' + hero.GameCharacter.name + '-portrait.jpg')" alt="">
+            <img :src="require('../assets/images/' + hero.GameCharacter.name + '-portrait.jpg') || ''" alt="">
         </picture>
         <span class="heroes-level">{{ hero.level }}</span>
         <div class="heroes-item-content">

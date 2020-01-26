@@ -1,11 +1,16 @@
 <template>
     <div class="character-item" @click="editCharacter" :class="isInTeam() === this.heroes.length ? '' : 'active'">
-        <picture>
-            <img
-                    :src="require(`../assets/images/${character.name}-portrait.jpg`) || ''"
-                    alt=""
-            >
-        </picture>
+        <div class="character-avatar">
+            <picture>
+                <img
+                        :src="require(`../assets/images/${character.name}-portrait.jpg`) || ''"
+                        alt=""
+                >
+            </picture>
+            <span class="character-icon">
+                <img :src="require(`../assets/icons/characters/${character.name}.png`) || ''" alt="">
+            </span>
+        </div>
         <div class="character-info">
             <span class="character-name">{{ character.name }}</span>
             <span class="character-max-card">{{ character.maxCard }} cards</span> |
@@ -29,20 +34,47 @@
             pointer-events: none;
         }
 
-        picture {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            overflow: hidden;
+        .character-avatar {
+            position: relative;
             z-index: 1;
 
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+            picture {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                overflow: hidden;
+                z-index: 1;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .character-icon {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 30px;
+                height: 30px;
+                padding: 4px;
+                border-radius: 50%;
+                background-color: $col_white;
+                overflow: hidden;
+                z-index: 2;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
             }
         }
 

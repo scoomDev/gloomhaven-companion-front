@@ -90,7 +90,7 @@
                 <span @click="editingObject = true" data-field="object" class="add-object">+</span>
             </div>
             <transition-group name="fade-to-top" tag="div" class="hero-objects-list">
-                <span v-for="(object, index) in objects" :key="index" class="object-item">
+                <span v-for="(object) in objects" :key="object" class="object-item">
                         {{ object }} <span @click="removeObject" :data-value="object" class="remove-object">X</span>
                 </span>
             </transition-group>

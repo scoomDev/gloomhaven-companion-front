@@ -8,5 +8,10 @@ module.exports = {
                   `
             }
         }
+    },
+    pwa: {
+        name: 'Gloom Companion',
+        themeColor: '#b9a78b',
+        msTileColor: '#b9a78b'
     }
 }

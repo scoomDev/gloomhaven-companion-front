@@ -10,7 +10,12 @@
             />
         </div>
         <div v-if="editHero" class="add-hero-form">
-            <h2>{{ characterName }}</h2>
+            <h2>
+                {{ characterName }}
+                <span class="character-icon">
+                    <img :src="require(`../assets/icons/characters/${characterName}.png`) || ''" alt="">
+                </span>
+            </h2>
             <div class="input-group">
                 <label for="hero-name">Nom du Héro</label>
                 <input type="text" name="hero-name" v-model="heroName">
@@ -49,6 +54,21 @@
                 font-size: 3rem;
                 line-height: 3rem;
                 text-transform: capitalize;
+
+                .character-icon {
+                    display: inline-block;
+                    width: 40px;
+                    height: 40px;
+                    margin-left: 10px;
+                    line-height: 40px;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
             }
 
             .input-group {
