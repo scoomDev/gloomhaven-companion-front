@@ -71,6 +71,30 @@
             </div>
         </div>
         <hr>
+        <div class="hero-perks">
+            <transition name="fade-to-top">
+                <form @submit.prevent="checkForm" class="perks-list" v-if="editingPerks">
+                    <input type="hidden" :value="currentHero.id" name="hero">
+                    <input type="hidden" :value="currentHero.GameCharacter.id" name="character">
+
+                    <ul>
+                        <li v-for="(perks, index) in currentHero.GameCharacter.perks" :key="index">
+                            <div v-html="addPerksCheckbox(perks.quantity, perks.id)"></div>
+                            {{ perks.content }}
+                        </li>
+                    </ul>
+
+                    <div class="btn-group">
+                        <button @click="editingPerks = false">annuler</button>
+                        <button type="submit">Valider</button>
+                    </div>
+                </form>
+            </transition>
+            <button class="perks-btn" @click="editingPerks = true">
+                Bénéfices <img src="../assets/icons/check_bd.png" alt="" class="icon-perks">
+            </button>
+        </div>
+        <hr>
         <div>
             <div class="hero-objects">
                 <transition name="fade">
@@ -258,6 +282,49 @@
             }
         }
 
+        .hero-perks {
+            width: 100%;
+
+            .perks-list {
+                position: absolute;
+                top: 3%;
+                left: 3%;
+                right: 3%;
+                bottom: 3%;
+                padding: 10px;
+                background-color: $col_white;
+                overflow-x: hidden;
+                overflow-y: auto;
+                z-index: 99;
+
+                .btn-group {
+                    display: flex;
+
+                    button {
+                        @extend %button;
+                    }
+                }
+
+                ul {
+                    margin: 0;
+                    padding: 0;
+                    li {
+                        font-size: 14px;
+                        padding: 10px 0;
+                    }
+                }
+            }
+
+            .perks-btn {
+                @extend %button;
+
+                .icon-perks {
+                    max-width: 16px;
+                    max-height: 18px;
+                }
+            }
+        }
+
         .hero-objects {
             position: relative;
             display: flex;
@@ -358,6 +425,7 @@
                 editingXp: false,
                 editingNote: false,
                 editingLevel: false,
+                editingPerks: false,
                 editGold: '',
                 editXp: '',
                 editNote: '',
@@ -459,6 +527,25 @@
                 }
                 this.object = ""
                 this.editingObject = false
+            },
+            addPerksCheckbox(quantity, perkId) {
+                let div = document.createElement('div')
+                for (let i = 0; i < quantity; i++) {
+                    let checkBox = document.createElement('input')
+                    checkBox.setAttribute('type', 'checkbox')
+                    checkBox.setAttribute('id', 'check-' + (i + 1) + '-' + perkId)
+                    checkBox.setAttribute('v-model', 'checked')
+                    div.appendChild(checkBox)
+                }
+
+                return div.innerHTML
+            },
+            checkForm(evt) {
+                const form = evt.target
+                const hiddenInput = form.querySelectorAll('input[type=hidden]')
+                const checkbox = form.querySelectorAll('input[type=checkbox]')
+                console.log(hiddenInput)
+                console.log(checkbox)
             }
         }
     }
