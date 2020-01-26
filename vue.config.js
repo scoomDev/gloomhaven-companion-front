@@ -5,6 +5,7 @@ module.exports = {
                 prependData: `
                     @import "@/assets/scss/tools/_variables.scss";
                     @import "@/assets/scss/tools/_utils.scss";
+                    @import "@/assets/scss/tools/_mixins.scss";
                   `
             }
         }

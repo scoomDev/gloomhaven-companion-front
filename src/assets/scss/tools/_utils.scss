@@ -6,11 +6,12 @@
   font-weight: bold;
   border: none;
   background: rgb(92,62,28);
-  background: linear-gradient(0deg, rgba(92,62,28,1) 0%, rgba(131,84,40,1) 40%, rgba(252,205,108,1) 100%);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(0deg, $col_brown_dark 0%, $col_brown_mid 40%, $col_brown_light 100%);
+  box-shadow: $shadow_material;
 }
 
 %input {
+  width: 100%;
   height: 30px;
   margin: 0;
   padding: 0.4rem 0.6rem;

@@ -22,23 +22,23 @@
                 <h2>{{ currentHero.name }}</h2>
                 <div class="hero-stats-content">
                     <div>
-                        <span class="hero-max-card">{{currentHero["GameCharacter"].maxCard }} \\_\</span>
-                        <span class="hero-life">
-                            <img class="stats-icon" src="../assets/icons/heal.png" alt="">
+                        <span class="hero-max-card stat-container">{{currentHero["GameCharacter"].maxCard }} \\_\</span>
+                        <span class="hero-life stat-container">
+                            <img class="stats-icon" src="../assets/icons/heal_bd.png" alt="">
                             {{ life }}
                         </span>
                     </div>
                     <div>
                         <div class="hero-xp">
                             <transition name="fade">
-                                <span v-show="!editingXp" @click="editingXp = true" data-field="xp">
-                                    <img class="stats-icon" src="../assets/icons/xp.png" alt="">
+                                <span v-show="!editingXp" @click="editingXp = true" data-field="xp" class="stat-container">
+                                    <img class="stats-icon" src="../assets/icons/xp_bd.png" alt="">
                                     {{ xp }}
                                 </span>
                             </transition>
                             <transition name="fade">
                                 <input
-                                        type="text"
+                                        type="number"
                                         v-model="editXp"
                                         v-show="editingXp"
                                         v-focus="editingXp"
@@ -50,14 +50,14 @@
                         </div>
                         <div class="hero-gold">
                             <transition name="fade">
-                                <span v-show="!editingGold" @click="editingGold = true">
-                                    <img class="stats-icon" src="../assets/icons/loot.png" alt="">
+                                <span v-show="!editingGold" @click="editingGold = true" class="stat-container">
+                                    <img class="stats-icon" src="../assets/icons/loot_bd.png" alt="">
                                     {{ gold }}
                                 </span>
                             </transition>
                             <transition name="fade">
                                 <input
-                                        type="text" v-model="editGold"
+                                        type="number" v-model="editGold"
                                         v-show="editingGold"
                                         v-focus="editingGold"
                                         @blur="updateGold"
@@ -87,7 +87,7 @@
                 <transition name="fade">
                     <h3 v-show="!editingObject" class="add-object-btn">Équipements</h3>
                 </transition>
-                <span @click="editingObject = true" data-field="object" class="add-object">+</span>
+                <span v-if="!editingObject" @click="editingObject = true" data-field="object" class="add-object">+</span>
             </div>
             <transition-group name="fade-to-top" tag="div" class="hero-objects-list">
                 <span v-for="(object) in objects" :key="object" class="object-item">
@@ -139,13 +139,9 @@
                     border: 4px solid white;
                     border-radius: 50%;
                     overflow: hidden;
-                    box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.4);
+                    box-shadow: $shadow_material;
 
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
+                    @include objectFit(cover)
                 }
 
                 .hero-level {
@@ -199,23 +195,7 @@
                 }
 
                 .hero-icon {
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 40px;
-                    height: 40px;
-                    padding: 4px;
-                    border-radius: 50%;
-                    background-color: $col_white;
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: contain;
-                    }
+                    @include characterIcon(40px, 40px, null, 1);
                 }
             }
 
@@ -234,9 +214,18 @@
                     flex-direction: column;
                     width: 100%;
 
-                    .stats-icon {
-                        max-width: 16px;
-                        max-height: 18px;
+                    .stat-container {
+                        display: flex;
+                        align-items: center;
+                        height: 30px;
+                        line-height: 30px;
+
+                        .stats-icon {
+                            margin-right: 6px;
+                            max-width: 16px;
+                            max-height: 18px;
+                            vertical-align: middle;
+                        }
                     }
 
                     & > div {
@@ -253,6 +242,8 @@
 
                         .hero-xp, .hero-gold {
                             position: relative;
+                            display: flex;
+                            align-items: center;
                             width: 50%;
                             height: 30px;
                             padding: 0.4rem 0.6rem;
@@ -268,6 +259,7 @@
         }
 
         .hero-objects {
+            position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -278,6 +270,21 @@
                 height: 30px;
                 margin: 0;
                 padding: 0;
+            }
+
+            .add-object {
+                position: absolute;
+                bottom: -50%;
+                right: 0;
+                width: 40px;
+                height: 40px;
+                color: white;
+                font-size: 26px;
+                text-align: center;
+                line-height: 40px;
+                border-radius: 50%;
+                background-color: $col_mid_grey;
+                box-shadow: $shadow_material;
             }
 
             input {

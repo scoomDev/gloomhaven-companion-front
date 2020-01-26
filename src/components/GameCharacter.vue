@@ -13,11 +13,13 @@
         </div>
         <div class="character-info">
             <span class="character-name">{{ character.name }}</span>
-            <span class="character-max-card">{{ character.maxCard }} cards</span> |
-            <span>
-                <img src="../assets/icons/heal.png" alt="">
-                {{ getMaxLife }}
-            </span>
+            <div class="character-stats">
+                <span class="character-max-card">cards {{ character.maxCard }}</span>
+                <span>
+                    <img src="../assets/icons/heal_bd.png" alt="">
+                    {{ getMaxLife }}
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -48,33 +50,11 @@
                 overflow: hidden;
                 z-index: 1;
 
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
+                @include objectFit(cover);
             }
 
             .character-icon {
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 30px;
-                height: 30px;
-                padding: 4px;
-                border-radius: 50%;
-                background-color: $col_white;
-                overflow: hidden;
-                z-index: 2;
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                }
+                @include characterIcon(30px, 30px, null, null, 0, 0, -4px)
             }
         }
 
@@ -89,26 +69,33 @@
 
             .character-name {
                 width: 100%;
-                font-size: 1.8rem;
-                line-height: 1.8rem;
+                font-size: 1.7rem;
+                line-height: 2.2rem;
                 font-weight: bold;
                 font-family: $font_pirata;
                 text-transform: capitalize;
             }
 
-            span {
+            .character-stats {
                 display: flex;
-                align-items: center;
-                img {
-                    max-width: 16px;
-                    max-height: 18px;
-                    margin-right: 5px;
-                    object-fit: contain;
-                }
-            }
+                width: 100%;
 
-            .character-max-card {
-                display: block;
+                span {
+                    display: flex;
+                    align-items: center;
+                    padding-right: 14px;
+
+                    &:last-of-type {
+                        padding-right: 0;
+                    }
+
+                    img {
+                        max-width: 16px;
+                        max-height: 18px;
+                        margin-right: 5px;
+                        object-fit: contain;
+                    }
+                }
             }
         }
     }

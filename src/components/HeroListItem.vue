@@ -11,19 +11,19 @@
             <h2>{{ hero.name }}</h2>
             <div class="heroes-stats">
                 <span>
-                    <img src="../assets/icons/loot.png" alt="">
+                    <img src="../assets/icons/loot_bd.png" alt="">
                     {{ hero.gold}}
                 </span>
                 <span>
-                    <img src="../assets/icons/item.png" alt="">
+                    <img src="../assets/icons/item_bd.png" alt="">
                     {{ hero.objects ? hero.objects.length : 0}}
                 </span>
                 <span>
-                    <img src="../assets/icons/heal.png" alt="">
+                    <img src="../assets/icons/heal_bd.png" alt="">
                     {{ JSON.parse(hero.GameCharacter.life)[hero.level] }}
                 </span>
                 <span>
-                    <img src="../assets/icons/xp.png" alt="">
+                    <img src="../assets/icons/xp_bd.png" alt="">
                     {{ hero.experience || 0 }}
                 </span>
             </div>
@@ -38,25 +38,7 @@
         align-items: center;
 
         .heroes-icon {
-            position: absolute;
-            left: -4px;
-            bottom: -6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 30px;
-            height: 30px;
-            padding: 4px;
-            border-radius: 50%;
-            background-color: $col_white;
-            overflow: hidden;
-            z-index: 3;
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
+            @include characterIcon(30px, 30px, null, 1, null, -4px, -6px);
         }
 
         picture {
@@ -66,11 +48,7 @@
             overflow: hidden;
             z-index: 2;
 
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
+            @include objectFit(cover);
         }
 
         .heroes-level {
@@ -122,6 +100,7 @@
 
                     img {
                         max-width: 16px;
+                        max-height: 18px;
                         margin-right: 5px;
                     }
                 }
