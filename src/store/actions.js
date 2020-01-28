@@ -1,6 +1,6 @@
 import Axios from "axios"
 
-const API_URL = process.env.NODE_ENV === "production" ? 'http://gloomapi.ci-com.fr/api' : 'http://localhost:8000/api'
+const API_URL = process.env.NODE_ENV === "production" ? 'https://gloomapi.ci-com.fr/api' : 'http://localhost:8000/api'
 
 export default {
 
