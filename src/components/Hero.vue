@@ -75,7 +75,6 @@
             <transition name="fade-to-top">
                 <form @submit.prevent="checkForm" class="perks-list" v-if="editingPerks">
                     <input type="hidden" :value="currentHero.id" name="hero">
-                    <input type="hidden" :value="currentHero.GameCharacter.id" name="character">
 
                     <ul>
                         <li v-for="(perks, index) in currentHero.GameCharacter.perks" :key="index">
@@ -85,7 +84,7 @@
                     </ul>
 
                     <div class="btn-group">
-                        <button @click="editingPerks = false">annuler</button>
+                        <span @click="editingPerks = false" class="cancel-btn">annuler</span>
                         <button type="submit">Valider</button>
                     </div>
                 </form>
@@ -295,13 +294,18 @@
                 background-color: $col_white;
                 overflow-x: hidden;
                 overflow-y: auto;
-                z-index: 99;
+                z-index: $zindex_overall;
 
                 .btn-group {
                     display: flex;
 
-                    button {
+                    button, .cancel-btn {
                         @extend %button;
+                    }
+
+                    .cancel-btn {
+                        font-size: 0.8rem;
+                        text-align: center;
                     }
                 }
 
@@ -534,7 +538,14 @@
                     let checkBox = document.createElement('input')
                     checkBox.setAttribute('type', 'checkbox')
                     checkBox.setAttribute('id', 'check-' + (i + 1) + '-' + perkId)
-                    checkBox.setAttribute('v-model', 'checked')
+                    checkBox.setAttribute('data-id', perkId)
+                    if (this.currentHero.completedPerks) {
+                        this.currentHero.completedPerks.forEach(objPerk => {
+                            if (parseInt(objPerk.perk) === perkId && i < objPerk.quantity) {
+                                checkBox.setAttribute('checked', "true")
+                            }
+                        })
+                    }
                     div.appendChild(checkBox)
                 }
 
@@ -542,10 +553,53 @@
             },
             checkForm(evt) {
                 const form = evt.target
-                const hiddenInput = form.querySelectorAll('input[type=hidden]')
+                const heroId = form.querySelector('input[name=hero]').value
                 const checkbox = form.querySelectorAll('input[type=checkbox]')
-                console.log(hiddenInput)
-                console.log(checkbox)
+                const perksId = []
+
+                checkbox.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        perksId.push(checkbox.getAttribute('data-id'))
+                    }
+                })
+
+                const data = {completedPerks: this.constructPerksData(perksId)}
+                this.$store.dispatch('updateHero', {heroId: heroId, data: data})
+                    .then(response => {
+                        if (response.status === 200) {
+                            this.$store.commit("add_message",
+                                {
+                                    state: "success",
+                                    content: "Les bénéfices ont bien été mis à jour"
+                                }
+                            )
+                            this.editingPerks = false
+                        } else {
+                            this.$store.commit("add_message", {
+                                state: "error",
+                                content: "Il y a eu une erreur !!"
+                            })
+                        }
+                    })
+            },
+            constructPerksData(perksId) {
+                let perkId;
+                const tmp = {}
+
+                perksId.forEach(perk => {
+                    if (perkId === perk) tmp[perk] += 1
+                    else {
+                        tmp[perk] = 1
+                        perkId = perk
+                    }
+                })
+
+                const data = []
+                for (const perk in tmp) {
+                    data.push({perk: perk, quantity: tmp[perk]})
+                }
+
+                return data
             }
         }
     }

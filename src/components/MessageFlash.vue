@@ -24,7 +24,7 @@
         flex-direction: column;
         justify-content: center;
         width: 260px;
-        z-index: 10;
+        z-index: $zindex_overall + 1;
         pointer-events: none;
 
         .alert {

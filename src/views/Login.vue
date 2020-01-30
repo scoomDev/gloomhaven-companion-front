@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <h2>Viens ! Connecte toi !</h2>
+        <h2>Viens !<br>Connecte toi !</h2>
         <transition name="slide-fade">
             <div v-if="errors.state" :class="{ 'alert-error': errors.state = 'error' }">
                 {{ errors.message }}
@@ -53,8 +53,8 @@
         }
 
         .register-link {
-            margin-top: auto;
-            margin-bottom: calc(1rem + 56px);
+            margin-bottom: auto;
+            margin-top: 1rem;
             text-align: center;
 
             a {
