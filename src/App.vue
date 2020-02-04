@@ -3,6 +3,7 @@
         <Header />
         <MessageFlash />
         <router-view/>
+        <div class="background"></div>
     </div>
 </template>
 
@@ -28,10 +29,20 @@
         max-width: 768px;
         min-height: 100vh;
         margin: 0 auto;
+        background-color: transparent;
 
-        background: $col_bg url("assets/images/background_light.jpg") no-repeat;
         overflow-x: hidden;
         overflow-y: auto;
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: $col_bg url("assets/images/background_light.jpg") no-repeat;
+            z-index: -1;
+        }
 
         ul {
             li {
