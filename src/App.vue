@@ -29,7 +29,7 @@
         min-height: 100vh;
         margin: 0 auto;
 
-        background-color: $col_bg;
+        background: $col_bg url("assets/images/background_light.jpg") no-repeat;
         overflow-x: hidden;
         overflow-y: auto;
 
@@ -53,7 +53,7 @@
         hr {
             width: 100%;
             height: 1px;
-            background-color: $col_black;
+            background-color: $col_white;
             outline: none;
             border: none;
         }

@@ -126,7 +126,6 @@ export default {
     },
 
     updateHero({commit}, {heroId, data}) {
-        console.log(data)
         return new Promise((resolve, reject) => {
             Axios.put(
                 API_URL + `/heroes/${heroId}`,

@@ -12,7 +12,7 @@
                         </ul>
                     </transition>
                     <span @click="calculateLevel ? editingLevel = !editingLevel : false ">{{ currentHero.level }}</span>
-                    <span class="add-level" v-show="calculateLevel">+</span>
+                    <span class="add-level" v-show="calculateLevel"><img :src="require('../assets/icons/level_up.svg')" alt=""></span>
                 </div>
                 <div class="hero-icon">
                     <img :src="require(`../assets/icons/characters/${currentHero.GameCharacter.name}.png`)" alt="">
@@ -22,7 +22,10 @@
                 <h2>{{ currentHero.name }}</h2>
                 <div class="hero-stats-content">
                     <div>
-                        <span class="hero-max-card stat-container">{{currentHero["GameCharacter"].maxCard }} \\_\</span>
+                        <span class="hero-max-card stat-container">
+                            <img :src="require('../assets/icons/cards.svg')" alt="" class="stats-icon">
+                            {{currentHero["GameCharacter"].maxCard }}
+                        </span>
                         <span class="hero-life stat-container">
                             <img class="stats-icon" src="../assets/icons/heal_bd.png" alt="">
                             {{ life }}
@@ -79,7 +82,7 @@
                     <ul>
                         <li v-for="(perks, index) in currentHero.GameCharacter.perks" :key="index">
                             <div v-html="addPerksCheckbox(perks.quantity, perks.id)"></div>
-                            {{ perks.content }}
+                                <p v-html="addIcons(perks.content)"></p>
                         </li>
                     </ul>
 
@@ -209,11 +212,15 @@
                         align-items: center;
                         width: 20px;
                         height: 20px;
-                        color: white;
                         font-size: 0.8rem;
                         line-height: 1rem;
-                        background-color: #80776f;
+                        background-color: #292321;
                         border-radius: 50%;
+
+                        img {
+                            width: 16px;
+                            height: 16px;
+                        }
                     }
                 }
 
@@ -298,9 +305,11 @@
 
                 .btn-group {
                     display: flex;
+                    justify-content: space-between;
 
                     button, .cancel-btn {
                         @extend %button;
+                        width: calc(50% - 1rem);
                     }
 
                     .cancel-btn {
@@ -600,6 +609,15 @@
                 }
 
                 return data
+            },
+            addIcons(string) {
+                const matches = [...string.matchAll('icon-[a-z]+-?[a-z]+')]
+                matches.forEach(match => {
+                    // todo: add svg sprite instead of PNG
+                    string = string.replace(`[[${match[0]}]]`, '<img src="/img/perks-icon/'+match[0]+'.png"/>')
+                })
+
+                return string
             }
         }
     }

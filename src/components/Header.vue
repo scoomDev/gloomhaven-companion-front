@@ -4,7 +4,7 @@
         <div class="header-buttons">
             <span class="info-btn">i</span>
             <span v-if="isLoggedIn" class="logout-btn">
-                <a @click="logout"><img :src="require('../assets/icons/logout.svg') || ''" alt=""></a>
+                <a @click="logout"><img :src="require('../assets/icons/exit.svg') || ''" alt=""></a>
             </span>
         </div>
     </div>
@@ -19,7 +19,6 @@
         height: $dim_header;
         padding: 0.5rem;
         color: white;
-        background-color: #918072;
 
         .header-logo {
             display: flex;
