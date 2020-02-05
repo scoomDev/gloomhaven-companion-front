@@ -10,7 +10,7 @@
                 <div>
                     <div>
                         <img :src="require('../assets/icons/hero_white.svg')" alt="">
-                        6/17
+                        {{team.heroes.length}}/17
                     </div>
                     <div>
                         <img :src="require('../assets/icons/reputation_white.svg')" alt="">
