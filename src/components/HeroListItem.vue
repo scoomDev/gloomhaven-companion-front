@@ -42,9 +42,10 @@
         }
 
         picture {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
+            border: 4px solid $col_white;
             overflow: hidden;
             z-index: 2;
 
@@ -75,7 +76,7 @@
             padding-left: 50px;
             padding-right: 1rem;
             border-radius: 0 4px 4px 0;
-            background-color: $col_mid_grey;
+            background-color: $col_character_bg;
             z-index: 1;
 
             h2 {
@@ -95,7 +96,7 @@
                 span {
                     display: flex;
                     align-items: center;
-                    color: $col_white;
+                    color: $col_brown_dark;
                     font-size: 0.8rem;
 
                     img {

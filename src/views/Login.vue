@@ -31,8 +31,8 @@
 
         h2 {
             font-family: $font_pirata;
-            font-size: 4rem;
-            line-height: 4rem;
+            font-size: 3rem;
+            line-height: 3.4rem;
             text-align: center;
         }
 

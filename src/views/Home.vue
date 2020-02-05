@@ -60,7 +60,7 @@
                         justify-content: space-around;
                         align-items: center;
                         color: white;
-                        background-color: #404040;
+                        background-color: $col_brown_dark;
                         z-index: 2;
 
                         &:before {
@@ -71,7 +71,7 @@
                             height: 0;
                             border-style: solid;
                             border-width: 0 0 100px 60px;
-                            border-color: transparent transparent #404040 transparent;
+                            border-color: transparent transparent $col_brown_dark transparent;
                         }
 
                         h2 {

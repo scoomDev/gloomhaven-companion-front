@@ -27,7 +27,7 @@
 <style lang="scss">
     .team-header {
         height: 60px;
-        background-color: #404040;
+        background-color: $col_brown_dark;
         transition: height 0.5s cubic-bezier(.51,.92,.24,1.15);
         overflow: hidden;
 
@@ -35,7 +35,7 @@
             display: flex;
             width: 100%;
             height: 60px;
-            background-color: #333333;
+            background-color: $col_brown_dark;
 
             picture {
                 position: relative;
@@ -90,7 +90,7 @@
                     height: 0;
                     border-style: solid;
                     border-width: 0 0 60px 30px;
-                    border-color: transparent transparent #333333 transparent;
+                    border-color: transparent transparent $col_brown_dark transparent;
                 }
 
                 div {

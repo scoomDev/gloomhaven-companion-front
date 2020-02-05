@@ -92,9 +92,7 @@
                     </div>
                 </form>
             </transition>
-            <button class="perks-btn" @click="editingPerks = true">
-                Bénéfices <img src="../assets/icons/check_bd.png" alt="" class="icon-perks">
-            </button>
+            <button class="perks-btn" @click="editingPerks = true">Bénéfices</button>
         </div>
         <hr>
         <div>
@@ -330,11 +328,6 @@
 
             .perks-btn {
                 @extend %button;
-
-                .icon-perks {
-                    max-width: 16px;
-                    max-height: 18px;
-                }
             }
         }
 
@@ -363,7 +356,7 @@
                 text-align: center;
                 line-height: 40px;
                 border-radius: 50%;
-                background-color: $col_mid_grey;
+                background-color: $col_brown_dark;
                 box-shadow: $shadow_material;
             }
 

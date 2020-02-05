@@ -65,7 +65,7 @@
             margin-left: -40px;
             padding: 0.5rem 0 0.5rem 60px;
             border-radius: 0 5px 5px 0;
-            background-color: $col_mid_grey;
+            background-color: $col_character_bg;
 
             .character-name {
                 width: 100%;

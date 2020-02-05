@@ -2,7 +2,7 @@
     <div>
         <team-header/>
         <div class="team">
-            <router-link class="add-hero" :to="{ 'name': 'team-add-hero' }">Créer un nouveau héro</router-link>
+            <router-link class="add-hero" :to="{ 'name': 'team-add-hero' }">nouveau héro</router-link>
             <ul class="heroes-list">
                 <li v-for="hero in heroes" :key="hero.id">
                     <router-link :to="{ 'name':  'hero', 'params': { 'id': hero.id }}"
@@ -22,13 +22,17 @@
         .add-hero {
             display: block;
             max-width: 290px;
+            height: 40px;
             margin: 1rem auto;
-            padding: 0.6rem 0.8rem;
-            color: white;
+            color: $col_brown_dark;
+            font-family: $font_pirata;
+            font-size: 1.6rem;
+            line-height: 40px;
             text-align: center;
             text-decoration: none;
             border-radius: 4px;
-            background-color: #747465;
+            background-color: $col_default_dark;
+            box-shadow: $shadow_material;
         }
 
         .heroes-list {
