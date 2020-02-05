@@ -52,11 +52,11 @@
 
         textarea {
             padding: 0.4rem 0.6rem;
-            border: 1px solid $col_mid_grey;
-            background-color: $col_mid_grey;
+            border: 1px solid $col_default_light;
+            background-color: $col_default_dark;
 
             &:focus {
-                border: 1px solid $col_black;
+                border: 1px solid $col_brown_dark;
                 outline: none;
             }
         }
@@ -64,7 +64,8 @@
         hr {
             width: 100%;
             height: 1px;
-            background-color: $col_white;
+            margin-top: 0.8rem;
+            background-color: $col_brown_dark;
             outline: none;
             border: none;
         }

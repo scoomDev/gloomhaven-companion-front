@@ -27,7 +27,7 @@
     #login {
         display: flex;
         flex-direction: column;
-        height: calc(100vh - 40px);
+        height: calc(100vh - #{$dim_header});
 
         h2 {
             font-family: $font_pirata;

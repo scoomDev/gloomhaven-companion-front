@@ -1,88 +1,66 @@
 <template>
-    <div class="header">
-        <router-link :to="{ 'name': 'home' }" class="header-logo"><img :src="require('../assets/gloomhaven-logo.png')" alt=""></router-link>
-        <div class="header-buttons">
-            <span class="info-btn">i</span>
-            <span v-if="isLoggedIn" class="logout-btn">
-                <a @click="logout"><img :src="require('../assets/icons/exit.svg') || ''" alt=""></a>
-            </span>
+    <div class="header-container">
+        <div class="header">
+            <router-link :to="{ 'name': 'home' }" class="header-logo"><img :src="require('../assets/gloomhaven-logo.png')" alt=""></router-link>
+            <div class="header-buttons">
+                <span class="info-btn">
+                    <img :src="require('../assets/icons/rules_white.svg')" alt="">
+                </span>
+                <span v-if="isLoggedIn" class="logout-btn">
+                    <a @click="logout"><img :src="require('../assets/icons/logout_white.svg') || ''" alt=""></a>
+                </span>
+            </div>
         </div>
+        <div class="header-placeholder"></div>
     </div>
 </template>
 
 <style lang="scss">
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: $dim_header;
-        padding: 0.5rem;
-        color: white;
+    .header-container {
+        .header-placeholder {
+            width: 100%;
+            height: $dim_header;
+        }
 
-        .header-logo {
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            width: 160px;
-            overflow: hidden;
+            width: 100%;
+            height: $dim_header;
+            padding: 0.5rem;
+            color: white;
+            background: center/cover no-repeat url("../assets/images/header_bg.jpg");
+            z-index: $zindex_header;
 
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
-        }
-
-        .logout-btn {
-            cursor: pointer;
-        }
-    }
-</style>
-
-<style lang="scss">
-    .header {
-        .header-logo {
-            width: 140px;
-            overflow: hidden;
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
-        }
-
-        .header-buttons {
-            display: flex;
-
-            .info-btn {
+            .header-logo {
                 display: flex;
-                justify-content: center;
                 align-items: center;
-                width: 35px;
-                height: 35px;
-                margin-right: 0.5rem;
-                color: $col_black;
-                font-size: 1.5rem;
-                font-family: $font_pirata;
-                border-radius: 50%;
-                background-color: $col_white;
+                width: 140px;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
             }
 
-            .logout-btn {
-                a {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 35px;
-                    height: 35px;
-                    border-radius: 50%;
-                    background-color: $col_white;
-                    box-shadow: $shadow_material;
+            .header-buttons {
+                display: flex;
+
+                span + span {
+                    margin-left: 1rem;
+                }
+
+                & > span {
 
                     img {
-                        width: 18px;
-                        height: 18px;
+                        width: 25px;
+                        height: 25px;
                     }
                 }
             }

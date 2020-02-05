@@ -11,11 +11,17 @@
                         <img src="../assets/images/fog_forest.jpg" alt="">
                     </picture>
                     <div class="team-item-content">
-                        <div>
-                            <h2>{{ team.name }}</h2>
-                            <div>{{ team.heroes.length }}/17</div>
+                        <h2>{{ team.name }}</h2>
+                        <div class="team-stats">
+                            <div>
+                                <img :src="require('../assets/icons/hero_white.svg')" alt="" class="team-icon">
+                                {{ team.heroes.length }}/17
+                            </div>
+                            <div>
+                                <img :src="require('../assets/icons/reputation_white.svg')" alt="" class="team-icon">
+                                {{ team.reputation }}
+                            </div>
                         </div>
-                        <div class="reputation">{{ team.reputation }} rep</div>
                     </div>
                 </router-link>
             </li>
@@ -32,7 +38,7 @@
             padding: 0;
 
             li {
-                height: 100px;
+                height: 70px;
                 list-style: none;
 
                 .team-item {
@@ -41,8 +47,8 @@
                     text-decoration: none;
 
                     picture {
-                        width: 30%;
-                        height: 100px;
+                        width: 25%;
+                        height: 70px;
                         overflow: hidden;
                         z-index: 1;
 
@@ -56,9 +62,11 @@
                     .team-item-content {
                         position: relative;
                         display: flex;
-                        width: 100%;
-                        justify-content: space-around;
-                        align-items: center;
+                        flex-direction: column;
+                        justify-content: center;
+                        width: 75%;
+                        height: 70px;
+                        padding-left: 0.2rem;
                         color: white;
                         background-color: $col_brown_dark;
                         z-index: 2;
@@ -70,21 +78,41 @@
                             width: 0;
                             height: 0;
                             border-style: solid;
-                            border-width: 0 0 100px 60px;
+                            border-width: 0 0 70px 60px;
                             border-color: transparent transparent $col_brown_dark transparent;
                         }
 
                         h2 {
-                            width: 85%;
-                            margin: 0;
+                            width: 100%;
+                            margin: 0.4rem 0 0.2rem 0;
                             padding: 0;
                             color: white;
-                            font-size: 1.2rem;
+                            font-family: $font_pirata;
+                            font-size: 1.4rem;
+                            line-height: 1.8rem;
                         }
 
-                        .reputation {
-                            width: 15%;
-                            text-align: center;
+                        .team-stats {
+                            display: flex;
+                            align-items: center;
+                            font-size: 0.9rem;
+
+                            div + div {
+                                margin-left: 1rem;
+                            }
+
+                            & > div {
+                                display: flex;
+                                align-items: center;
+                            }
+
+                            img {
+                                &.team-icon {
+                                    width: 14px;
+                                    height: 14px;
+                                    margin-right: 0.5rem;
+                                }
+                            }
                         }
                     }
                 }

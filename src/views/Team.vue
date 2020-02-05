@@ -42,7 +42,7 @@
             li {
                 display: block;
                 width: 300px;
-                margin: 1rem auto;
+                margin: 1.5rem auto;
                 list-style: none;
 
                 a {

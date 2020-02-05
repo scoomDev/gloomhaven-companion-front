@@ -38,12 +38,13 @@
         align-items: center;
 
         .heroes-icon {
-            @include characterIcon(30px, 30px, null, 1, null, -4px, -6px);
+            @include characterIcon(35px, 35px, null, 1, null, -6px, -10px);
         }
 
         picture {
-            width: 70px;
-            height: 70px;
+            position: absolute;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             border: 4px solid $col_white;
             overflow: hidden;
@@ -53,27 +54,17 @@
         }
 
         .heroes-level {
-            position: absolute;
-            left: 50px;
-            bottom: -6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            color: black;
-            font-size: 1rem;
-            line-height: 1.2rem;
-            border-radius: 50%;
-            background-color: white;
-            z-index: 3;
+            @include characterIcon(35px, 35px, 1, 1, -14px, 44px);
         }
 
         .heroes-item-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             width: 280px;
-            height: 60px;
-            margin-left: -40px;
-            padding-left: 50px;
+            height: 70px;
+            margin-left: 20px;
+            padding-left: 70px;
             padding-right: 1rem;
             border-radius: 0 4px 4px 0;
             background-color: $col_character_bg;
@@ -82,8 +73,8 @@
             h2 {
                 width: 100%;
                 margin: 0.5rem 0 0.2rem 0;
-                font-size: 1.5rem;
-                line-height: 1.5rem;
+                font-size: 1.4rem;
+                line-height: 1.2rem;
                 font-weight: bold;
                 font-family: $font_pirata;
                 text-transform: capitalize;
@@ -91,18 +82,23 @@
 
             .heroes-stats {
                 display: flex;
-                justify-content: space-between;
+                margin-top: 0.2rem;
 
-                span {
+                span + span {
+                    margin-left: 1rem;
+                }
+
+                & > span {
                     display: flex;
                     align-items: center;
                     color: $col_brown_dark;
                     font-size: 0.8rem;
+                    font-weight: bold;
 
                     img {
                         max-width: 16px;
                         max-height: 18px;
-                        margin-right: 5px;
+                        margin-right: 0.4rem;
                     }
                 }
             }

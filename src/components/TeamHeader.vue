@@ -2,17 +2,24 @@
     <div class="team-header">
         <div class="team-stats">
             <picture>
-                <div v-if="isHeroPage && team.achievements" class="open-team close" @click="toggleTeam">+</div>
+                <div v-if="isHeroPage && team.achievements" class="open-team close" @click="toggleTeam">i</div>
                 <img src="../assets/images/fog_forest.jpg" alt="">
             </picture>
             <div class="team-item-content">
+                <h2>{{ team.name }}</h2>
                 <div>
-                    <h2>{{ team.name }}</h2>
-                    <div class="nbr-of-heroes">6/17</div>
-                </div>
-                <div>
-                    <div class="reputation">{{ team.reputation }} rep</div>
-                    <div class="nsc">NSC : {{ teamLevel }}</div>
+                    <div>
+                        <img :src="require('../assets/icons/hero_white.svg')" alt="">
+                        6/17
+                    </div>
+                    <div>
+                        <img :src="require('../assets/icons/reputation_white.svg')" alt="">
+                        {{ team.reputation }}
+                    </div>
+                    <div>
+                        <span>nsc :&nbsp;</span>
+                        {{ teamLevel }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,7 +48,7 @@
                 position: relative;
                 display: flex;
                 align-items: center;
-                width: 30%;
+                width: 25%;
                 height: 60px;
                 overflow: hidden;
                 z-index: 1;
@@ -55,6 +62,7 @@
                     height: 46px;
                     margin-left: 0.5rem;
                     color: white;
+                    font-family: $font_pirata;
                     font-size: 1.6rem;
                     line-height: 46px;
                     font-weight: bold;
@@ -75,12 +83,12 @@
             .team-item-content {
                 position: relative;
                 display: flex;
-                width: 70%;
-                justify-content: space-around;
-                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+                width: 75%;
                 padding: 0 4px;
                 color: white;
-                z-index: 2;
+                z-index: $zindex_min + 1;
 
                 &:before {
                     content: "";
@@ -93,22 +101,36 @@
                     border-color: transparent transparent $col_brown_dark transparent;
                 }
 
-                div {
-                    h2 {
-                        width: 85%;
-                        margin: 0;
-                        padding: 0;
-                        color: white;
-                        font-size: 0.8rem;
-                    }
-
-                    .nbr-of-heroes {
-                        font-size: 0.7rem;
-                    }
+                h2 {
+                    margin: 0;
+                    padding: 0;
+                    font-family: $font_pirata;
+                    color: white;
+                    font-size: 1.2rem;
                 }
 
-                .reputation, .nsc {
-                    font-size: 0.8rem;
+                div {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 0.1rem;
+
+                    div + div {
+                        margin-left: 0.8rem;
+                    }
+
+                    & > div {
+                        font-size: 0.8rem;
+
+                        span {
+                            padding-right: 0.4rem;
+                        }
+
+                        img {
+                            width: 12px;
+                            height: 12px;
+                            margin-right: 0.4rem;
+                        }
+                    }
                 }
             }
         }
@@ -156,7 +178,7 @@
 
                 if (hasOpen) {
                     teamEl.style.height = (teamHeight - achievements.getBoundingClientRect().height) + 'px'
-                    evt.target.innerText = '+'
+                    evt.target.innerText = 'i'
                     evt.target.classList.add('close')
                     evt.target.classList.remove('open')
                 } else {

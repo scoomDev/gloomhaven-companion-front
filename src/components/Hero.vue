@@ -12,7 +12,7 @@
                         </ul>
                     </transition>
                     <span @click="calculateLevel ? editingLevel = !editingLevel : false ">{{ currentHero.level }}</span>
-                    <span class="add-level" v-show="calculateLevel"><img :src="require('../assets/icons/level_up.svg')" alt=""></span>
+                    <span class="add-level" v-show="calculateLevel"><img :src="require('../assets/icons/level_up_white.svg')" alt=""></span>
                 </div>
                 <div class="hero-icon">
                     <img :src="require(`../assets/icons/characters/${currentHero.GameCharacter.name}.png`)" alt="">
@@ -73,7 +73,6 @@
                 </div>
             </div>
         </div>
-        <hr>
         <div class="hero-perks">
             <transition name="fade-to-top">
                 <form @submit.prevent="checkForm" class="perks-list" v-if="editingPerks">
@@ -87,16 +86,15 @@
                     </ul>
 
                     <div class="btn-group">
-                        <span @click="editingPerks = false" class="cancel-btn">annuler</span>
+                        <span @click="editingPerks = false" class="cancel-btn">Annulation</span>
                         <button type="submit">Valider</button>
                     </div>
                 </form>
             </transition>
             <button class="perks-btn" @click="editingPerks = true">Bénéfices</button>
         </div>
-        <hr>
-        <div>
-            <div class="hero-objects">
+        <div class="hero-objects">
+            <div class="hero-objects-edit">
                 <transition name="fade">
                     <input
                             type="text"
@@ -113,15 +111,16 @@
                 </transition>
                 <span v-if="!editingObject" @click="editingObject = true" data-field="object" class="add-object">+</span>
             </div>
+            <hr>
             <transition-group name="fade-to-top" tag="div" class="hero-objects-list">
                 <span v-for="(object) in objects" :key="object" class="object-item">
                         {{ object }} <span @click="removeObject" :data-value="object" class="remove-object">X</span>
                 </span>
             </transition-group>
         </div>
-        <hr>
         <div class="hero-note">
             <h3 @click="editingNote = true">Note</h3>
+            <hr>
             <transition name="fade">
                 <p v-show="!editingNote" @click="editingNote = true">{{ note }}</p>
             </transition>
@@ -142,8 +141,10 @@
 <style lang="scss">
     .hero-companion {
         display: block;
-        width: 90%;
+        width: 100%;
+        max-width: 576px;
         margin: 0 auto;
+        padding: 0 1rem;
 
         .hero-header {
             display: flex;
@@ -157,8 +158,8 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    width: 120px;
-                    height: 120px;
+                    width: 100px;
+                    height: 100px;
                     margin-right: 1rem;
                     border: 4px solid white;
                     border-radius: 50%;
@@ -169,20 +170,10 @@
                 }
 
                 .hero-level {
-                    position: absolute;
-                    top: 0;
-                    right: 10px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 40px;
-                    height: 40px;
-                    color: black;
+                    @include characterIcon(40px, 40px, 1, null, -8px, null, null, 12px);
                     font-size: 1.2rem;
                     line-height: 1.4rem;
-                    background-color: white;
-                    border-radius: 50%;
-                    z-index: 5;
+                    overflow: unset;
 
                     .next-level {
                         position: absolute;
@@ -202,45 +193,39 @@
                     }
 
                     .add-level {
-                        position: absolute;
-                        top: -6px;
-                        left: -6px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 20px;
-                        height: 20px;
+                        @include characterIcon(20px, 20px, 1, 1, -4px, -4px);
                         font-size: 0.8rem;
                         line-height: 1rem;
                         background-color: #292321;
-                        border-radius: 50%;
 
                         img {
-                            width: 16px;
-                            height: 16px;
+                            width: 12px;
+                            height: 12px;
                         }
                     }
                 }
 
                 .hero-icon {
-                    @include characterIcon(40px, 40px, null, 1);
+                    @include characterIcon(40px, 40px, null, 1, null, -6px, -6px);
                 }
             }
 
             .hero-stats {
                 width: 100%;
+
                 h2 {
-                    margin-top: 0;
+                    margin: 0;
                     padding-left: 0.6rem;
                     font-family: 'Pirata One', cursive;
                     font-size: 2rem;
-                    line-height: 2rem;
+                    line-height: 2.4rem;
                 }
 
                 .hero-stats-content {
                     display: flex;
                     flex-direction: column;
                     width: 100%;
+                    margin-top: 0.8rem;
 
                     .stat-container {
                         display: flex;
@@ -311,7 +296,7 @@
                     }
 
                     .cancel-btn {
-                        font-size: 0.8rem;
+                        font-size: 1.2rem;
                         text-align: center;
                     }
                 }
@@ -332,71 +317,73 @@
         }
 
         .hero-objects {
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            height: 30px;
+            margin-top: 1rem;
 
-            h3 {
-                height: 30px;
-                margin: 0;
-                padding: 0;
-            }
-
-            .add-object {
-                position: absolute;
-                bottom: -50%;
-                right: 0;
-                width: 40px;
-                height: 40px;
-                color: white;
-                font-size: 26px;
-                text-align: center;
-                line-height: 40px;
-                border-radius: 50%;
-                background-color: $col_brown_dark;
-                box-shadow: $shadow_material;
-            }
-
-            input {
-                @extend %input;
-                position: absolute;
-            }
-        }
-
-        .hero-objects-list {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 0.8rem;
-
-            .object-item {
+            .hero-objects-edit {
                 position: relative;
                 display: flex;
+                justify-content: space-between;
                 align-items: center;
-                justify-content: center;
-                margin-right: 0.5rem;
-                margin-bottom: 0.5rem;
-                padding: 0 34px 0 0.2rem;
-                height: 20px;
-                font-size: 0.9rem;
-                outline: 1px solid #1f1f1f;
+                width: 100%;
+                height: 30px;
 
-                .remove-object {
+                .add-object {
                     position: absolute;
-                    top: 0;
+                    bottom: -5px;
                     right: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 20px;
-                    height: 20px;
-                    padding: 0 0.2rem;
+                    width: 40px;
+                    height: 40px;
                     color: white;
-                    font-size: 0.8rem;
-                    line-height: 1rem;
-                    background-color: #1f1f1f;
+                    font-size: 26px;
+                    text-align: center;
+                    line-height: 40px;
+                    border-radius: 50%;
+                    background-color: $col_brown_dark;
+                    box-shadow: $shadow_material;
+                }
+
+                input {
+                    @extend %input;
+                    position: absolute;
+                }
+            }
+
+            .hero-objects-list {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 0.8rem;
+
+                .object-item {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 30px;
+                    margin: 0 0.5rem 0.5rem 0;
+                    padding: 0 40px 0 0.4rem;
+                    font-family: $font_pirata;
+                    font-size: 1.2rem;
+                    letter-spacing: 0.4px;
+                    outline: 1px solid $col_brown_dark;
+                    background-color: $col_default_dark;
+
+                    .remove-object {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 30px;
+                        height: 30px;
+                        padding: 0 0.2rem;
+                        color: white;
+                        font-family: 'Open Sans', sans-serif;
+                        font-size: 0.8rem;
+                        line-height: 30px;
+                        font-weight: bold;
+                        background-color: $col_brown_dark;
+                    }
                 }
             }
         }
@@ -404,6 +391,11 @@
         .hero-note {
             position: relative;
             width: 100%;
+            margin-top: 1rem;
+            font-family: $font_pirata;
+            font-size: 1.2rem;
+            letter-spacing: 0.4px;
+
             p {
                 width: 100%;
                 white-space: pre-line;
@@ -416,6 +408,14 @@
                 height: 150px;
                 margin-bottom: 30px;
             }
+        }
+
+        h3 {
+            height: 30px;
+            margin: 0.5rem 0;
+            padding: 0;
+            font-family: $font_pirata;
+            font-size: 1.6rem;
         }
     }
 </style>

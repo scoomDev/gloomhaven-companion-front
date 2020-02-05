@@ -4,7 +4,6 @@ import store from '../store/index'
 import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
-import Characters from '../views/CharacterList.vue'
 import Team from '../views/Team'
 import HeroCompanion from "../views/HeroCompanion"
 import Axios from 'axios'
@@ -45,14 +44,6 @@ const routes = [
     path: '/team/:id',
     name: 'team',
     component: Team,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: '/characters',
-    name: 'characters',
-    component: Characters,
     meta: {
       requireAuth: true
     }

@@ -76,6 +76,9 @@
 
                 label {
                     display: block;
+                    font-family: $font_pirata;
+                    font-size: 1.4rem;
+                    line-height: 1.8rem;
                 }
 
                 input {

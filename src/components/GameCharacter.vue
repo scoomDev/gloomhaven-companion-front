@@ -12,11 +12,14 @@
             </span>
         </div>
         <div class="character-info">
-            <span class="character-name">{{ character.name }}</span>
+            <h2>{{ character.name }}</h2>
             <div class="character-stats">
-                <span class="character-max-card">cards {{ character.maxCard }}</span>
                 <span>
-                    <img src="../assets/icons/heal_bd.png" alt="">
+                    <img :src="require('../assets/icons/cards.svg')" alt="">
+                    {{ character.maxCard }}
+                </span>
+                <span>
+                    <img :src="require('../assets/icons/heal_bd.png')" alt="">
                     {{ getMaxLife }}
                 </span>
             </div>
@@ -29,7 +32,7 @@
         display: flex;
         width: 280px;
         align-items: center;
-        margin: 1rem auto;
+        margin: 1.5rem auto;
 
         &.active {
             opacity: 0.5;
@@ -47,6 +50,7 @@
                 width: 80px;
                 height: 80px;
                 border-radius: 50%;
+                border: 4px solid $col_white;
                 overflow: hidden;
                 z-index: 1;
 
@@ -54,23 +58,27 @@
             }
 
             .character-icon {
-                @include characterIcon(30px, 30px, null, null, 0, 0, -4px)
+                @include characterIcon(40px, 40px, null, 1, 0, -10px, -10px)
             }
         }
 
         .character-info {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: center;
             width: 240px;
+            height: 70px;
             margin-left: -40px;
             padding: 0.5rem 0 0.5rem 60px;
             border-radius: 0 5px 5px 0;
             background-color: $col_character_bg;
 
-            .character-name {
+            h2 {
                 width: 100%;
+                margin: 0;
+                padding: 0;
                 font-size: 1.7rem;
-                line-height: 2.2rem;
+                line-height: 1.7rem;
                 font-weight: bold;
                 font-family: $font_pirata;
                 text-transform: capitalize;
@@ -79,15 +87,16 @@
             .character-stats {
                 display: flex;
                 width: 100%;
+                margin-top: 0.4rem;
 
-                span {
+                span + span {
+                    margin-left: 0.8rem;
+                }
+
+                & > span {
                     display: flex;
                     align-items: center;
                     padding-right: 14px;
-
-                    &:last-of-type {
-                        padding-right: 0;
-                    }
 
                     img {
                         max-width: 16px;
