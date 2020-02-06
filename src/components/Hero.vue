@@ -305,8 +305,39 @@
                     margin: 0;
                     padding: 0;
                     li {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
                         font-size: 14px;
-                        padding: 10px 0;
+                        margin: 0.5rem;
+                        padding: 10px;
+                        border: 1px solid $col_mid_grey;
+
+                        div {
+                            margin-right: 0.5rem;
+                        }
+
+                        p {
+                            margin: 0;
+                            padding: 0;
+                            font-size: 1rem;
+                            line-height: 1rem;
+
+                            .svg-container {
+                                position: relative;
+                                display: inline-block;
+                                width: 20px;
+                                height: 22px;
+
+                                svg {
+                                    position: absolute;
+                                    top: 3px;
+                                    display: inline-block;
+                                    width: 25px;
+                                    height: 25px;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -440,7 +471,8 @@
                 arrLevel: {
                     level: [1,2,3,4,5,6,7,8,9],
                     xp: [0,45,95,150,210,275,345,420,500]
-                }
+                },
+                statusIcon: require('../assets/icons/status/status-icons.svg')
             }
         },
         computed: {
@@ -607,7 +639,9 @@
                 const matches = [...string.matchAll('icon-[a-z]+-?[a-z]+')]
                 matches.forEach(match => {
                     // todo: add svg sprite instead of PNG
-                    string = string.replace(`[[${match[0]}]]`, '<img src="/img/perks-icon/'+match[0]+'.png"/>')
+                    string = string.replace(`[[${match[0]}]]`, `<div class="svg-container"><svg class="status-icon">
+                                                                    <use xlink:href="${this.statusIcon}#${match[0]}"></use>
+                                                                </svg></div>`)
                 })
 
                 return string

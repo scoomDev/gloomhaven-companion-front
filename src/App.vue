@@ -40,7 +40,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: $col_bg url("assets/images/background_light.jpg") no-repeat;
+            background: $col_bg center/cover url("assets/images/background_light.jpg") no-repeat;
             z-index: -1;
         }
 
