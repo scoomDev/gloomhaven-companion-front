@@ -137,7 +137,8 @@
                         level: this.heroLevel.toString(),
                         gold: this.heroGold.toString(),
                         GameCharacter: `/api/game_characters/${this.characterId}`,
-                        team: '/api/teams/1'
+                        team: '/api/teams/1',
+                        isRetired: false
                     }
                     this.$store.dispatch('addNewHero', data)
                         .then(() => {

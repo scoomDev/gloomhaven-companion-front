@@ -2,10 +2,19 @@
     <div>
         <team-header/>
         <div class="team">
-            <router-link class="add-hero" :to="{ 'name': 'team-add-hero' }">nouveau héro</router-link>
-            <ul class="heroes-list">
+            <div class="see-retired" @click="seeRetired">{{ seeRetiredState ? 'Voir les héros' : 'Voir les retraités'}}</div>
+            <router-link class="add-hero" :to="{ 'name': 'team-add-hero' }">Nouveau héro</router-link>
+            <ul class="heroes-list" v-if="!seeRetiredState">
                 <li v-for="hero in heroes" :key="hero.id">
                     <router-link v-if="!hero.isRetired" :to="{ 'name':  'hero', 'params': { 'id': hero.id }}"
+                                 v-on:click.native="storeCurrentHero(hero)">
+                        <HeroListItem :hero="hero" />
+                    </router-link>
+                </li>
+            </ul>
+            <ul class="heroes-list" v-if="seeRetiredState">
+                <li v-for="hero in heroes" :key="hero.id">
+                    <router-link v-if="hero.isRetired " :to="{ 'name':  'hero', 'params': { 'id': hero.id }}"
                                  v-on:click.native="storeCurrentHero(hero)">
                         <HeroListItem :hero="hero" />
                     </router-link>
@@ -19,7 +28,7 @@
     .team {
         width: 100%;
 
-        .add-hero {
+        .add-hero, .see-retired {
             display: block;
             max-width: 290px;
             height: 40px;
@@ -65,7 +74,8 @@
         },
         data() {
             return {
-                heroes: {}
+                heroes: {},
+                seeRetiredState: false
             }
         },
         created() {
@@ -75,6 +85,9 @@
         methods: {
             storeCurrentHero: function (hero) {
                 this.$store.commit('store_current_hero', hero)
+            },
+            seeRetired() {
+                this.seeRetiredState = !this.seeRetiredState
             }
         }
     }
