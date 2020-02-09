@@ -127,7 +127,10 @@
                 this.$emit('editCharacter', {id: this.character.id, name: this.character.name})
             },
             isInTeam() {
-                const heroes = this.heroes.filter(hero => hero.GameCharacter.id !== this.character.id)
+                const heroes = this.heroes.filter(hero => {
+                    if (hero.isRetired) return hero
+                    if (hero.GameCharacter.id !== this.character.id) return hero
+                })
                 return heroes.length
             }
         }

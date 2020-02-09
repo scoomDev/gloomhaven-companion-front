@@ -5,7 +5,7 @@
             <router-link class="add-hero" :to="{ 'name': 'team-add-hero' }">nouveau héro</router-link>
             <ul class="heroes-list">
                 <li v-for="hero in heroes" :key="hero.id">
-                    <router-link :to="{ 'name':  'hero', 'params': { 'id': hero.id }}"
+                    <router-link v-if="!hero.isRetired" :to="{ 'name':  'hero', 'params': { 'id': hero.id }}"
                                  v-on:click.native="storeCurrentHero(hero)">
                         <HeroListItem :hero="hero" />
                     </router-link>
